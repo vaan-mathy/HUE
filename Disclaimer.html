@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Disclaimer – HUE Faculty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F8F4; --surface:#FFFFFF; --soft:#EAF0E6; --ink:#25382F; --muted:#5C6E64;
+  --sage:#8FA68E; --gold:#C9A25E; --glow:#F3E3BC; --line:#DCE4D8;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16211C; --surface:#1E2C25; --soft:#223229; --ink:#EEF2EA; --muted:#A9B8AE; --gold:#D8B57A; --glow:#3A3524; --line:#2E4036; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#16211C; --surface:#1E2C25; --soft:#223229; --ink:#EEF2EA; --muted:#A9B8AE; --gold:#D8B57A; --glow:#3A3524; --line:#2E4036; color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.75}
+a{color:inherit;text-underline-offset:4px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.5rem}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;margin:0}
+p{margin:0 0 1rem}
+
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-top:.9rem;padding-bottom:.9rem}
+.brand{font-family:var(--serif);font-size:1.5rem;font-weight:600;text-decoration:none;letter-spacing:.02em}
+nav{display:flex;gap:1.4rem;flex-wrap:wrap}
+nav a{text-decoration:none;color:var(--muted);font-size:.95rem;font-weight:500}
+nav a:hover{color:var(--ink)}
+
+.hero{position:relative;overflow:hidden;text-align:center;padding:5rem 0 5.5rem}
+.hero svg{position:absolute;left:50%;top:50%;width:min(900px,160vw);transform:translate(-50%,-50%);pointer-events:none}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(2.75rem,8vw,5rem);margin-bottom:1rem}
+.hero p{margin:0 auto;max-width:56ch;font-size:1.15rem;color:var(--muted)}
+
+.layout{display:grid;grid-template-columns:230px 1fr;gap:3.5rem;padding:3rem 0 5rem;align-items:start}
+aside{position:sticky;top:5.5rem}
+aside ul{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+aside a{display:block;padding:.4rem 1rem;text-decoration:none;color:var(--muted);font-size:.95rem}
+aside a:hover{color:var(--ink)}
+article{max-width:68ch}
+article section{padding:0 0 3rem}
+article h2{font-size:clamp(2rem,4vw,2.6rem);margin-bottom:1.25rem;padding-top:.5rem}
+article h3{font-size:1.5rem;margin:2rem 0 .6rem;color:var(--gold)}
+.note{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:16px;padding:1.5rem 1.75rem;margin:1.5rem 0}
+.note h3{margin-top:0}
+.note p:last-child{margin:0}
+
+footer{border-top:1px solid var(--line);padding:2.5rem 0;color:var(--muted);font-size:.9rem;text-align:center}
+footer a{margin:0 .6rem}
+
+@media (max-width:820px){
+  .layout{grid-template-columns:1fr;gap:1.5rem}
+  aside{position:static}
+  aside ul{display:flex;flex-wrap:wrap;gap:.25rem .5rem;border:0}
+  aside a{padding:.3rem .8rem;border:1px solid var(--line);border-radius:999px}
+  .hero{padding:3.5rem 0}
+  nav{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="brand" href="https://www.hue-faculty.com/en/home/">HUE Faculty</a>
+  <nav aria-label="Main">
+    <a href="https://www.hue-faculty.com/en/home/">Home</a>
+    <a href="https://www.hue-faculty.com/en/about-us/">About</a>
+    <a href="https://www.hue-faculty.com/en/enrollment/">Enrollment</a>
+    <a href="https://www.hue-faculty.com/en/contact/">Contact</a>
+  </nav>
+</div></header>
+
+<div class="hero">
+  <svg viewBox="0 0 900 600" aria-hidden="true">
+    <defs><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F3E3BC" stop-opacity=".9"/><stop offset="1" stop-color="#F3E3BC" stop-opacity="0"/></radialGradient></defs>
+    <circle cx="450" cy="300" r="290" fill="url(#g)"/>
+    <g fill="none" stroke="#8FA68E" stroke-opacity=".35"><circle cx="450" cy="300" r="120"/><circle cx="450" cy="300" r="190"/><circle cx="450" cy="300" r="260"/></g>
+  </svg>
+  <div class="wrap">
+    <h1>Disclaimer</h1>
+    <p>Please take a moment to read how HUE Faculty works, what our programs are and are not, and the terms for using this website.</p>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <aside aria-label="On this page"><ul>
+    <li><a href="#legal">Legal Advice</a></li>
+    <li><a href="#terms">Terms &amp; Conditions</a></li>
+    <li><a href="#copyright">Copyright and Trademarks</a></li>
+    <li><a href="#misc">Miscellaneous</a></li>
+  </ul></aside>
+
+  <article>
+    <section id="legal">
+      <h2>Legal Advice</h2>
+      <p>The HUE Program is offered by officially recognized partners / facilitators by HUE FACULTY, Inc. The officially recognized facilitators were trained and licensed by HUE FACULTY, Inc. or one of its legitimate partners. The instructors are offering the authentic Human Universal Energy® training program as unaffiliated and independent facilitators with a personal registration number. They use this website to advertise their seminars in the Human Universal Energy® training program. The facilitators are solely responsible for the content taught in the seminars based on their individual contractual relationship with each participant.</p>
+
+      <div class="note">
+        <h3>Beware of confusion!</h3>
+        <p>The HUE FACULTY, Inc. should like to point out, that currently websites and Emails are in circulation which could cause confusion with our authentic educational program, based on their design and/or their content. We therefore clarify that it is not about our authentic educational program “Human Universal Energy (HUE) after Mr. Luong Minh Dang®”, if an educational program in Human Universal Energy is not offered by HUE FACULTY, Inc. or its recognized partners/instructors. Such websites and Emails do not originate from HUE FACULTY, Inc. or one of its legitimate partners. HUE FACULTY, Inc. or one of its legitimate partners is in no way affiliated with the operator of these websites and forwarder of these Emails. We dissociate ourselves from all other operator of websites and the content of websites, which were similar to our website or could cause confusion with our website. The operators of these websites are in no way affiliated with us or authorized by us.</p>
+      </div>
+
+      <div class="note">
+        <h3>Medical Disclaimer</h3>
+        <p>This program is offered to anyone without any pre-requirements. The techniques taught in the seminars cannot substitute for the advice of a medical professional (physician, psychiatrist, psychologist, nurse, pharmacist and other certified health professionals). They should not be construed as an attempt to offer or render medical advice, diagnosis or treatment or otherwise engage in the practice of medicine. With the exception of course fees, there are no other financial obligations. The minimum age required is 14 years. Written parental consent for students younger than 21 years is mandatory. Subject to change without prior notice.</p>
+      </div>
+    </section>
+
+    <section id="terms">
+      <h2>Terms &amp; Conditions</h2>
+      <p>Please read these terms of service and conditions of use carefully before using this website (‘the Site’). These Terms and Conditions apply to all visits and use of the Site, as well as to the Content (as defined hereafter), information, recommendations and/or services provided to you on or through the Site. By accessing and using the Site, you signify your consent to these Terms and Conditions in their entirety in addition to any other law or regulation that applies to the Site, the Internet, and/or the World Wide Web. If you do not agree to these Terms and Conditions in their entirety please leave the Site.</p>
+
+      <h3>Ownership of content</h3>
+      <p>The Site is owned and operated by HUE FACULTY, Inc. on behalf of MANKIND ENLIGHTENMENT LOVE, Inc., a company registered in the state of Missouri, USA.</p>
+      <p>All of the content featured or displayed on the Site, including, but not limited to text, graphics, photographs, images, moving images, sound, illustrations and software (“Content”), is owned by HUE FACULTY, Inc. and/or its affiliated partners (hereinafter in this document HUE FACULTY, Inc.’), its licensors and/or its content providers. All elements of the Site including, but not limited to, the general design and the Content, are protected by trade dress, copyright, moral rights, trademark and other laws relating to intellectual property rights. Except as explicitly permitted under this or another agreement with HUE FACULTY, Inc., no portion or element of the Site or its Content may be copied or retransmitted via any means and the Site, its Content and all related rights shall remain the exclusive property of the relevant member of the HUE FACULTY, Inc. or its licensors unless otherwise expressly agreed.</p>
+    </section>
+
+    <section id="copyright">
+      <h2>Copyright and Trademarks</h2>
+      <h3>Copyright</h3>
+      <p>The copyright in all Content is and remains owned by HUE FACULTY, Inc. Except as may be otherwise indicated in specific documents within the Site, you are authorized to view, play, print and download documents, audio and video found on the Site for personal, informational, and non-commercial purposes only. You may not modify any of the materials and you may not copy, distribute, transmit, display, perform, reproduce, publish, license, create derivative works from, transfer or sell any Content. Except as authorized under the law relating to copyright, you may not reuse any Content without first obtaining the consent of HUE FACULTY, Inc.. For purposes of these terms, the use of any such material on any other website or networked computer environment is prohibited. You will not remove any copyright, trademark or other proprietary notices from material found on the Site.</p>
+      <p>In the event you download software (including but not limited to screensavers, icons, videos and wallpapers) from the Site, the software, including any files, images incorporated in or generated by the software, and data accompanying the software (collectively, the “Software”) are licensed to you by HUE FACULTY, Inc. HUE FACULTY, Inc. does not transfer title to the Software to you. You own the medium on which the Software is recorded, but HUE FACULTY, Inc. retains full and complete title to the Software, and all intellectual property rights therein. You may not redistribute, sell, decompile, reverse engineer, disassemble, or otherwise reduce the Software to a human-readable form.</p>
+
+      <h3>Trademarks</h3>
+      <p>All trademarks, service marks and trade names of HUE FACULTY, Inc. used herein (including but not limited to: the word mark “Mankind Enlightenment Love®”, “Human Universal Energy®”, “Human Universal Energy after Mr. Luong Minh Dang®”, “the Mankind Enlightenment Love logo”, are trademarks or registered trademarks of HUE FACULTY, Inc. or its affiliates, unless stated otherwise. You may not use, copy, reproduce, republish, upload, post, transmit, distribute, or modify HUE FACULTY, Inc. trademarks in any way, including in advertising or publicity pertaining to distribution of materials on the Site, without HUE FACULTY, Inc.s’ prior written consent. The use of HUE FACULTY, Inc. trademarks on any other website or network computer environment, for example the storage or reproduction of (a part of) the Site in any external internet site or the creation of links, hypertext, links or deeplinks between the Site and any other internet site, is prohibited without the express written consent of HUE FACULTY, Inc..</p>
+
+      <h3>Disclaimer of Warranties</h3>
+      <p>The site and the content are provided ‘as is’ and without any warranties of any kind, whether express or implied, including but not limited to, implied warranties of satisfactory quality, fitness for a particular purpose and non-infringement, to the fullest extent permitted by law. The information on the site is for general information purposes only and does not constitute advice. HUE FACULTY, Inc. does not represent or warrant that the information and/or facilities contained in the site are accurate, complete or current, or that the site will be uninterrupted or error free, or that any defects in the site will be corrected or that the site or the server that makes the site available are free of viruses or any other harmful components. HUE FACULTY, Inc. does not make any warranties or representations regarding the use of the materials in the site in terms of their correctness, accuracy, adequacy, usefulness, timeliness, reliability or otherwise, in each case to the fullest extent permitted by applicable law. HUE FACULTY, Inc. reserves the right to suspend or withdraw the whole or any part of the site at any time without notice without incurring any liability.</p>
+
+      <h3>Limitation of liability</h3>
+      <p>Your use of the site is at your own risk. Neither HUE FACULTY, Inc., nor any of its affiliates, officers, directors nor any of its agents or any other party involved in creating, producing or delivering the site will be liable for any direct, indirect, special, consequential or other damages that result from the use of, or the inability to use, the materials on the site, including damages caused by viruses or any incorrectness or incompleteness of the information on the site, or the performance of the products, even if HUE FACULTY, Inc. has been advised of the possibility of any such damages. Please note that some jurisdictions may not allow the exclusion of certain damages, so some of the above exclusions and limitations may not apply to you.</p>
+
+      <h3>Links to third parties</h3>
+      <p>For your convenience and to improve the usage of the Site, links to websites that are owned and controlled by third parties may be provided from time to time. These links take you outside HUE FACULTY, Inc.’s service and off the HUE FACULTY, Inc. Site and are beyond HUE FACULTY, Inc.’s control. This includes links to partners that may use HUE FACULTY, Inc.’s logos as part of a co-branding agreement. The sites you can link to have their own separate privacy policy and although HUE FACULTY, Inc. seeks to protect the integrity of its Site, HUE FACULTY, Inc. is not responsible and cannot be held liable for the content and activities of these sites. You therefore visit/access these sites entirely at your own risk. Please note that these other sites may send their own cookies to users, collect data or solicit personal information, and you are therefore advised to check the terms of use and/or privacy policies on those websites prior to using them.</p>
+
+      <h3>Misuse of the Site</h3>
+      <p>You are prohibited from using the Site to post or transmit any material which is or may be infringing, threatening, false, misleading, inflammatory, libelous, invasive of privacy, obscene, pornographic, abusive, discriminating, illegal or any material that could constitute or encourage conduct that would be considered a criminal offence, violate the rights of any party or which may otherwise give rise to civil liability or violate any law. You are also prohibited from using the Site to advertise or perform any commercial solicitation.</p>
+
+      <h3>Participation Disclaimer</h3>
+      <p>From time to time HUE FACULTY, Inc. makes it possible to view and distribute content generated by you, for instance through e-postings and sending postcards to others persons. If you make use of this you acknowledge that HUE FACULTY, Inc. only acts as a passive conduit for the distribution and is not responsible and liable for the content of the communications and materials generated by you or other users. HUE FACULTY, Inc. reserves the right at its sole discretion to block or remove any communications and materials it believes is not in accordance with these Terms and Conditions, or otherwise unacceptable to HUE FACULTY, Inc..</p>
+    </section>
+
+    <section id="misc">
+      <h2>Miscellaneous</h2>
+      <h3>Unsolicited ideas</h3>
+      <p>HUE FACULTY, Inc. maintains the policy of not reviewing or accepting any unsolicited submissions of ideas, inventions, designs and/or other materials whether consisting of texts, images, sounds, software, information or otherwise (the “Materials”) from persons external to HUE FACULTY, Inc. You should therefore not post any Materials on the Site or send these to HUE FACULTY, Inc. by e-mail or otherwise. In the event you do sent HUE FACULTY, Inc. any Materials, despite the request not to do so, HUE FACULTY, Inc. shall be entitled to use, copy and/or commercially exploit such Materials to the fullest extent and free of charge and HUE FACULTY, Inc. shall not be bound by any confidentiality obligation in respect of such Materials.</p>
+
+      <h3>How you can contact us</h3>
+      <p>If you have any questions or comments about the Site or any of our services, please contact us through our <a href="https://www.hue-faculty.com/en/contact/">contact page</a>.</p>
+
+      <h3>Changes to the terms</h3>
+      <p>HUE FACULTY, Inc. reserves the right, at its discretion, to change, modify, add, or remove portions of these terms at any time. Please check these terms periodically for changes. Your continued use of the Site following the posting of changes to these terms (including the HUE FACULTY, Inc. Privacy Policy) will mean you accept those changes.</p>
+
+      <h3>Purchases</h3>
+      <p>When we make it possible to order services and products via the Site, please also read the terms and conditions that will apply to those purchases. You can find these terms and conditions on the page where you can place your order.</p>
+
+      <h3>Applicable Law and Jurisdiction</h3>
+      <p>These terms and conditions shall be governed by the laws of the United States of America and the parties hereby submit to the non-exclusive jurisdiction of the United States of America Courts. If any portion of these Terms and Conditions become void, it will not affect the validity and enforceability of the remaining provisions. The void part will be replaced by provisions that are valid and have legal effect.</p>
+    </section>
+  </article>
+</div>
+
+<footer><div class="wrap">
+  <p style="margin:0 auto .5rem">HUE FACULTY® on behalf of MANKIND ENLIGHTENMENT LOVE®</p>
+  <a href="https://www.hue-faculty.com/en/disclaimer/">Disclaimer</a>
+  <a href="https://www.hue-faculty.com/en/terms-conditions/">Terms</a>
+  <a href="https://www.hue-faculty.com/en/privacy-policy/">Privacy</a>
+</div></footer>
+
+</body>
+</html>
