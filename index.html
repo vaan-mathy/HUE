@@ -5,67 +5,62 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>HUE Faculty – Mankind Enlightenment Love</title>
+  <meta name="description" content="HUE Faculty teaches Meditation and Universal Energy Philosophy – the authentic Human Universal Energy® (HUE) training program founded by Master Luong Minh Dang.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:wght@400;500;600&display=swap"
     rel="stylesheet">
   <style>
+    /* ============ Design tokens ============ */
     :root {
       --bg: #F6F8F4;
       --surface: #FFFFFF;
       --soft: #EAF0E6;
-      --ink: #0e1b15;
+      --ink: #0E1B15;
       --muted: #5C6E64;
       --sage: #8FA68E;
-      --gold: #C9A25E;
+      --gold: #B98F45;
+      --gold-light: #E7C67E;
       --glow: #F3E3BC;
       --line: #DCE4D8;
+      --aura-core: rgba(246, 214, 140, .85);
+      --aura-mid: rgba(222, 180, 95, .38);
+      --aura-edge: rgba(201, 162, 94, .12);
+      --logo-opacity: .26;
       --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
       --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --header-h: 84px;
+      --wrap: 1040px;
+      --toc-w: 210px;
       color-scheme: light;
-      box-sizing: border-box;
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
-    @media (prefers-color-scheme:dark) {
+    @media (prefers-color-scheme: dark) {
       :root:not([data-theme="light"]) {
-        --bg: #16211C;
-        --surface: #1E2C25;
-        --soft: #223229;
-        --ink: #EEF2EA;
-        --muted: #A9B8AE;
-        --sage: #8FA68E;
-        --gold: #D8B57A;
-        --glow: #3A3524;
-        --line: #2E4036;
+        --bg: #16211C; --surface: #1E2C25; --soft: #1B2822; --ink: #EEF2EA; --muted: #A9B8AE;
+        --gold: #D8B57A; --gold-light: #E9CB8E; --glow: #3A3524; --line: #2E4036;
+        --aura-core: rgba(232, 196, 120, .45); --aura-mid: rgba(216, 181, 122, .18); --aura-edge: rgba(216, 181, 122, .06);
+        --logo-opacity: .2;
         color-scheme: dark;
       }
     }
 
     :root[data-theme="dark"] {
-      --bg: #16211C;
-      --surface: #1E2C25;
-      --soft: #223229;
-      --ink: #EEF2EA;
-      --muted: #A9B8AE;
-      --sage: #8FA68E;
-      --gold: #D8B57A;
-      --glow: #3A3524;
-      --line: #2E4036;
+      --bg: #16211C; --surface: #1E2C25; --soft: #1B2822; --ink: #EEF2EA; --muted: #A9B8AE;
+      --gold: #D8B57A; --gold-light: #E9CB8E; --glow: #3A3524; --line: #2E4036;
+      --aura-core: rgba(232, 196, 120, .45); --aura-mid: rgba(216, 181, 122, .18); --aura-edge: rgba(216, 181, 122, .06);
+      --logo-opacity: .2;
       color-scheme: dark;
     }
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: inherit
-    }
+    /* ============ Base ============ */
+    *, *::before, *::after { box-sizing: border-box }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 5rem
+      scroll-padding-top: calc(var(--header-h) + 4rem);
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -74,364 +69,616 @@
       color: var(--ink);
       font-family: var(--sans);
       font-size: 1.0625rem;
-      line-height: 1.7
+      line-height: 1.7;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      overflow-x: hidden;
     }
 
-    a {
-      color: inherit
+    img { max-width: 100%; display: block }
+    a { color: inherit; text-underline-offset: 4px }
+
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px }
+
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.5rem }
+
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; margin: 0 }
+    h2 { font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 1.25rem }
+    p { margin: 0 0 1rem; max-width: 64ch }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .75rem;
     }
 
-    :focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 3px;
-      border-radius: 4px
-    }
-
-    .wrap {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 0 1.5rem
-    }
-
-    h1,
-    h2,
-    h3 {
-      font-family: var(--serif);
-      font-weight: 500;
-      line-height: 1.15;
-      margin: 0
-    }
-
-    h2 {
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      margin-bottom: 1.25rem
-    }
-
-    p {
-      margin: 0 0 1rem;
-      max-width: 62ch
-    }
-
-    header {
+    /* ============ Header ============ */
+    .site-header {
       position: sticky;
       top: 0;
-      z-index: 5;
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--line)
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding-top: env(safe-area-inset-top, 0px);
     }
 
-    header .wrap {
+    .site-header .wrap {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
-      padding-top: .9rem;
-      padding-bottom: .9rem
+      gap: 1.25rem;
+      padding-top: .7rem;
+      padding-bottom: .7rem;
     }
 
     .brand {
-      font-family: var(--serif);
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-decoration: none;
-      letter-spacing: .02em
-    }
-
-    nav {
       display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap
-    }
-
-    nav a {
+      align-items: center;
+      gap: .85rem;
       text-decoration: none;
-      color: var(--muted);
+      min-width: 0;
+    }
+
+    .brand img { width: 56px; height: 56px; object-fit: contain; flex-shrink: 0 }
+
+    .brand-text { display: flex; flex-direction: column; line-height: 1.1; min-width: 0 }
+    .brand-name { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; letter-spacing: .03em }
+    .brand-sub { font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: .3rem }
+
+    /* Navigation */
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: .35rem }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .55rem .9rem;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      font: inherit;
       font-size: .95rem;
-      font-weight: 500
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color .2s, background .2s;
     }
 
-    nav a:hover {
-      color: var(--ink)
+    .nav-link:hover, .has-sub.open > .nav-link { color: var(--ink); background: var(--soft) }
+
+    .chev { width: 12px; height: 12px; transition: transform .25s }
+    .has-sub.open .chev { transform: rotate(180deg) }
+
+    .has-sub { position: relative }
+
+    .submenu {
+      list-style: none;
+      margin: 0;
+      padding: .5rem;
+      position: absolute;
+      top: calc(100% + .6rem);
+      left: 50%;
+      min-width: 230px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 18px 40px -18px rgba(14, 27, 21, .28);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, 8px);
+      transition: opacity .2s, transform .2s, visibility .2s;
+      z-index: 60;
     }
 
+    /* invisible bridge so hover doesn't drop between button and menu */
+    .submenu::before { content: ""; position: absolute; left: 0; right: 0; top: -.7rem; height: .7rem }
+
+    .has-sub.open .submenu,
+    .has-sub:focus-within .submenu {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    @media (hover: hover) and (min-width: 901px) {
+      .has-sub:hover .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0) }
+      .has-sub:hover .chev { transform: rotate(180deg) }
+    }
+
+    .submenu a {
+      display: block;
+      padding: .65rem 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: .95rem;
+      color: var(--ink);
+    }
+
+    .submenu a:hover, .submenu a:focus-visible { background: var(--soft) }
+    .submenu small { display: block; font-size: .8rem; color: var(--muted); line-height: 1.35 }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: currentColor;
+      border-radius: 2px;
+      position: relative;
+      transition: transform .25s, background .25s;
+    }
+
+    .menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0 }
+    .menu-toggle span::before { top: -6px }
+    .menu-toggle span::after { top: 6px }
+    .menu-open .menu-toggle span { background: transparent }
+    .menu-open .menu-toggle span::before { transform: translateY(6px) rotate(45deg) }
+    .menu-open .menu-toggle span::after { transform: translateY(-6px) rotate(-45deg) }
+
+    /* ============ On this page ============ */
+    .toc {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 40;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .toc-title {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+      display: none;
+    }
+
+    .toc ul {
+      list-style: none;
+      margin: 0 auto;
+      padding: .6rem 1.5rem;
+      max-width: var(--wrap);
+      display: flex;
+      gap: .5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .toc ul::-webkit-scrollbar { display: none }
+
+    .toc a {
+      display: block;
+      white-space: nowrap;
+      padding: .3rem .85rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: .88rem;
+      color: var(--muted);
+      transition: color .2s, border-color .2s, background .2s;
+    }
+
+    .toc a:hover { color: var(--ink) }
+    .toc a.active { color: var(--ink); border-color: var(--gold); background: color-mix(in srgb, var(--glow) 55%, transparent) }
+
+    /* ============ Hero with radiating logo ============ */
     .hero {
       position: relative;
       overflow: hidden;
       text-align: center;
-      background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5)), url('logo.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-attachment: fixed;
-      padding: 6rem 0 6.5rem
+      padding: clamp(4.5rem, 10vw, 7.5rem) 0 clamp(5rem, 11vw, 8rem);
+      isolation: isolate;
     }
 
-    .hero svg {
+    .aura {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: min(900px, 160vw);
+      width: min(760px, 135vw);
+      aspect-ratio: 1;
       transform: translate(-50%, -50%);
-      z-index: 0;
-      pointer-events: none
+      z-index: -1;
+      pointer-events: none;
+      display: grid;
+      place-items: center;
     }
 
-    .hero .wrap {
+    .aura-glow {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%,
+          var(--aura-core) 0%,
+          var(--aura-mid) 28%,
+          var(--aura-edge) 50%,
+          transparent 70%);
+      animation: breathe 7s ease-in-out infinite;
+    }
+
+    .aura-ring {
+      position: absolute;
+      width: 46%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent);
+      opacity: 0;
+      animation: radiate 9s ease-out infinite;
+    }
+
+    .aura-ring:nth-child(3) { animation-delay: 3s }
+    .aura-ring:nth-child(4) { animation-delay: 6s }
+
+    .aura-logo {
       position: relative;
-      z-index: 1
+      width: 44%;
+      height: auto;
+      opacity: var(--logo-opacity);
+      filter: drop-shadow(0 0 24px rgba(231, 190, 104, .75)) drop-shadow(0 0 60px rgba(231, 190, 104, .45));
     }
 
-    .hero h1 {
-      font-size: clamp(2.75rem, 8vw, 5.5rem);
-      margin-bottom: 1.25rem
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: .9 }
+      50% { transform: scale(1.06); opacity: 1 }
     }
 
-    .hero p {
-      margin: 0 auto 2rem;
-      font-size: 1.2rem;
-      color: var(--muted)
+    @keyframes radiate {
+      0% { transform: scale(.9); opacity: .7 }
+      100% { transform: scale(2.1); opacity: 0 }
     }
 
     .hero .tag {
       font-family: var(--serif);
       font-style: italic;
-      font-size: 1.35rem;
+      font-size: clamp(1.15rem, 2.5vw, 1.4rem);
       color: var(--gold);
-      margin-bottom: 1rem
+      margin: 0 auto 1rem;
     }
 
-    .btns {
-      display: flex;
-      gap: .9rem;
-      justify-content: center;
-      flex-wrap: wrap
+    .hero h1 { font-size: clamp(2.6rem, 8vw, 5.5rem); margin-bottom: 1.25rem; text-wrap: balance }
+
+    .hero .lead {
+      margin: 0 auto 2.25rem;
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 58ch;
     }
+
+    /* ============ Buttons ============ */
+    .btns { display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap }
 
     .btn {
-      display: inline-block;
-      padding: .8rem 1.6rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: .8rem 1.7rem;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 600;
       font-size: .98rem;
       border: 1.5px solid var(--ink);
-      transition: background .2s, color .2s
+      transition: background .2s, color .2s;
     }
 
-    .btn.primary {
-      background: var(--ink);
-      color: var(--bg)
-    }
+    .btn.primary { background: var(--ink); color: var(--bg) }
+    .btn.primary:hover { background: transparent; color: var(--ink) }
+    .btn.ghost:hover { background: var(--ink); color: var(--bg) }
 
-    .btn.primary:hover {
-      background: transparent;
-      color: var(--ink)
-    }
+    /* ============ Sections ============ */
+    section { padding: clamp(3.5rem, 8vw, 5.5rem) 0 }
 
-    .btn.ghost:hover {
-      background: var(--ink);
-      color: var(--bg)
-    }
-
-    section {
-      padding: 5rem 0
-    }
+    .band { background: var(--soft) }
 
     .two {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3.5rem;
-      align-items: center
-    }
-
-    .band {
-      background: var(--soft)
+      gap: clamp(2rem, 5vw, 4rem);
+      align-items: center;
     }
 
     .portrait {
-      aspect-ratio: 4/5;
-      border-radius: 200px 200px 24px 24px;
+      aspect-ratio: 4 / 5;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      border-radius: 220px 220px 28px 28px;
+      overflow: hidden;
       background: radial-gradient(circle at 50% 30%, var(--glow), var(--soft) 70%);
       border: 1px solid var(--line);
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 1.5rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: .9rem
+      box-shadow: 0 30px 60px -35px rgba(185, 143, 69, .55);
     }
+
+    .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: top center }
 
     .quote {
       font-family: var(--serif);
       font-style: italic;
-      font-size: 1.5rem;
+      font-size: clamp(1.3rem, 2.5vw, 1.55rem);
       line-height: 1.4;
       border-left: 3px solid var(--gold);
       padding-left: 1.25rem;
-      margin: 1.5rem 0;
-      max-width: 34ch
+      margin: 1.75rem 0;
+      max-width: 34ch;
     }
 
-    .values {
+    .grid-3 {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1.5rem
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
     }
+
+    .features { margin-top: 2.75rem }
+
+    .feature { padding-top: 1.25rem; border-top: 1px solid var(--line) }
+    .feature h3 { font-size: 1.6rem; margin-bottom: .4rem }
+    .feature p { color: var(--muted); margin: 0 }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: 28px;
-      padding: 2.5rem
+      padding: clamp(1.75rem, 3vw, 2.5rem);
     }
 
-    .card h3 {
-      font-size: 2rem;
-      margin-bottom: .75rem
-    }
+    .card h3 { font-size: 2rem; margin-bottom: .75rem }
+    .card p { margin: 0; color: var(--muted) }
+    .card ul { list-style: none; margin: 0; padding: 0; color: var(--muted); display: grid; gap: .6rem }
+    .card b { color: var(--ink); font-weight: 600 }
 
-    .card p {
-      margin: 0;
-      color: var(--muted)
-    }
+    .role { color: var(--muted); display: block; font-size: .95rem }
 
-    .three {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 2.5rem
-    }
+    /* Contact */
+    .contact dl { margin: 0; display: grid; gap: 1.5rem }
+    .contact dt { font-family: var(--serif); font-size: 1.3rem; color: var(--gold) }
+    .contact dd { margin: 0 }
+    .contact .btns { justify-content: flex-start }
 
-    .three h3 {
-      font-size: 1.6rem;
-      margin-bottom: .4rem
-    }
-
-    .three p {
-      color: var(--muted);
-      margin: 0
-    }
-
-    .contact dl {
-      margin: 0;
-      display: grid;
-      gap: 1.25rem
-    }
-
-    .contact dt {
-      font-family: var(--serif);
-      font-size: 1.25rem;
-      color: var(--gold)
-    }
-
-    .contact dd {
-      margin: 0
-    }
-
-    .contact a {
-      text-underline-offset: 4px
-    }
-
+    /* Footer */
     footer {
       border-top: 1px solid var(--line);
       padding: 2.5rem 0;
       color: var(--muted);
       font-size: .9rem;
-      text-align: center
+      text-align: center;
     }
 
-    footer a {
-      margin: 0 .6rem
+    footer p { margin: 0 auto .75rem; max-width: none }
+    .footer-mail a { color: var(--gold); font-weight: 600; text-decoration: none }
+    .footer-mail a:hover { text-decoration: underline }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem 1.5rem }
+
+    /* ============ Large desktop: TOC becomes right-hand panel ============ */
+    @media (min-width: 1300px) {
+      .wrap {
+        margin-left: max(0px, calc((100vw - var(--wrap) - var(--toc-w) - 3rem) / 2));
+      }
+
+      /* Welcome area stays centred and free of the side panel */
+      .hero .wrap { margin-left: auto }
+
+      .toc {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity .3s, transform .3s, visibility .3s;
+      }
+
+      body.past-hero .toc { opacity: 1; visibility: visible; transform: none }
+
+      .toc {
+        position: fixed;
+        top: calc(var(--header-h) + 2rem);
+        right: max(1.5rem, calc((100vw - var(--wrap) - var(--toc-w) - 3rem) / 2));
+        width: var(--toc-w);
+        background: color-mix(in srgb, var(--surface) 88%, transparent);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 1.25rem 1.25rem 1rem;
+        box-shadow: 0 20px 40px -30px rgba(14, 27, 21, .35);
+      }
+
+      .toc-title { display: block; margin-bottom: .6rem }
+
+      .toc .toc-welcome { display: none }
+
+      .toc ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        border-left: 2px solid var(--line);
+        overflow: visible;
+      }
+
+      .toc a {
+        border: 0;
+        border-radius: 0;
+        padding: .35rem .9rem;
+        margin-left: -2px;
+        border-left: 2px solid transparent;
+        font-size: .92rem;
+      }
+
+      .toc a.active { background: none; border-left-color: var(--gold) }
+
+      html { scroll-padding-top: calc(var(--header-h) + 1.5rem) }
     }
 
-    @media (max-width:760px) {
+    /* ============ Tablet & mobile navigation ============ */
+    @media (max-width: 900px) {
+      .menu-toggle { display: inline-flex }
 
-      .two,
-      .values,
-      .three {
-        grid-template-columns: 1fr
+      .site-nav {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 24px 40px -30px rgba(14, 27, 21, .4);
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        transition: max-height .3s ease, visibility .3s;
       }
 
-      .two {
-        gap: 2rem
+      .menu-open .site-nav { max-height: 80vh; overflow-y: auto; visibility: visible }
+
+      .nav-list { flex-direction: column; align-items: stretch; gap: 0; padding: .75rem 1.5rem 1.25rem }
+      .nav-list > li { border-bottom: 1px solid var(--line) }
+      .nav-list > li:last-child { border-bottom: 0 }
+
+      .nav-link {
+        width: 100%;
+        justify-content: space-between;
+        padding: 1rem .25rem;
+        border-radius: 0;
+        font-size: 1.05rem;
+        color: var(--ink);
       }
 
-      .portrait {
-        max-width: 300px;
-        margin: 0 auto
+      .nav-link:hover, .has-sub.open > .nav-link { background: none }
+
+      .submenu {
+        position: static;
+        transform: none;
+        min-width: 0;
+        border: 0;
+        box-shadow: none;
+        background: var(--soft);
+        border-radius: 14px;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        transition: max-height .3s ease, padding .3s, margin .3s;
       }
 
-      section {
-        padding: 3.5rem 0
-      }
+      .submenu::before { display: none }
 
-      .hero {
-        padding: 4rem 0 4.5rem
-      }
-
-      .card {
-        padding: 1.75rem
-      }
-
-      nav {
-        gap: 1rem
-      }
+      .has-sub:focus-within .submenu { transform: none }
+      .has-sub:not(.open) .submenu { visibility: hidden }
+      .has-sub.open .submenu { max-height: 400px; padding: .4rem; margin-bottom: 1rem; transform: none }
     }
 
-    @media (prefers-reduced-motion:reduce) {
-      html {
-        scroll-behavior: auto
-      }
+    @media (max-width: 860px) {
+      .two { grid-template-columns: 1fr }
+      .two .portrait { order: -1; max-width: 340px }
+      .contact .two > dl { order: 0 }
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 0 1.15rem }
+      .brand img { width: 46px; height: 46px }
+      .brand-name { font-size: 1.2rem }
+      .brand-sub { font-size: .56rem; letter-spacing: .1em }
+      .btns .btn { flex: 1 1 100% }
+      .contact .btns .btn { flex: 1 1 100% }
+      .toc ul { padding: .55rem 1.15rem }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto }
+      .aura-glow, .aura-ring { animation: none }
+      .aura-ring { display: none }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
+  <header class="site-header" id="site-header">
     <div class="wrap">
-      <img src="logo.png" alt="HUE Logo" width="100" height="100">
-      <a class="brand" href="#top">HUE FACULTY® <br>
-        <span style="font-size: 20px;">on behalf of </span><br>
-        MANKIND.ENLIGHTENMENT.LOVE®
+      <a class="brand" href="#top" aria-label="HUE Faculty – home">
+        <img src="logo.png" alt="" width="56" height="56">
+        <span class="brand-text">
+          <span class="brand-name">HUE FACULTY®</span>
+          <span class="brand-sub">on behalf of Mankind · Enlightenment · Love®</span>
+        </span>
       </a>
-      <nav aria-label="Main">
-        <a href="#about">Courses</a>
-        <a href="#master">Events</a>
-        <a href="#purpose">Explore</a>
-        <a href="#president">Contact Us</a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li class="has-sub">
+            <button class="nav-link sub-toggle" type="button" aria-expanded="false" aria-controls="courses-menu">
+              Courses
+              <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8.5l4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="submenu" id="courses-menu">
+              <li><a href="HUE_Level.html">HUE Level<small>Basic to Specialized, 01–08 HUE</small></a></li>
+              <li><a href="Other_Course.html">Other Courses<small>HUE Development courses</small></a></li>
+              <li><a href="1_on_1Coaching.html">1-on-1 Coaching<small>Individual M.E.L. guidance</small></a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="Calendar.html">Events</a></li>
+          <li><a class="nav-link" href="Explore.html">Explore</a></li>
+          <li><a class="nav-link" href="Contact.html">Contact Us</a></li>
+        </ul>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-    <div class="hero">
-      <svg viewBox="0 0 900 600" aria-hidden="true">
-        <defs>
-          <radialGradient id="g" cx="50%" cy="50%" r="50%">
-            <stop offset="0" stop-color="#F3E3BC" stop-opacity=".9" />
-            <stop offset="1" stop-color="#F3E3BC" stop-opacity="0" />
-          </radialGradient>
-        </defs>
-        <circle cx="450" cy="300" r="290" fill="url(#g)" />
-        <g fill="none" stroke="#8FA68E" stroke-opacity=".35">
-        </g>
-      </svg>
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    <ul>
+      <li class="toc-welcome"><a href="#top">Welcome</a></li>
+      <li><a href="#about">About HUE</a></li>
+      <li><a href="#master">The Founder</a></li>
+      <li><a href="#purpose">Mission &amp; Vision</a></li>
+      <li><a href="#president">The President</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="aura" aria-hidden="true">
+        <div class="aura-glow"></div>
+        <span class="aura-ring"></span>
+        <span class="aura-ring"></span>
+        <span class="aura-ring"></span>
+        <img class="aura-logo" src="logo.png" alt="">
+      </div>
       <div class="wrap">
         <p class="tag">Welcome to HUE School</p>
         <h1>Mankind, Enlightenment, Love</h1>
-        <p>The HUE Faculty trust teaches Meditation and Universal Energy Philosophy, helping people live in
-          harmony — balancing spiritual and material success with calmness and true joy.</p>
+        <p class="lead">The HUE Faculty trust teaches Meditation and Universal Energy Philosophy, helping people live
+          in harmony — balancing spiritual and material success with calmness and true joy.</p>
         <div class="btns">
           <a class="btn primary" href="https://www.hue-faculty.com/en/enrollment/">Become a student</a>
           <a class="btn ghost" href="#contact">Request Healing</a>
         </div>
       </div>
-    </div>
+    </section>
 
     <section id="about">
       <div class="wrap">
+        <span class="eyebrow">About the program</span>
         <h2>HUE FACULTY®</h2>
         <p>Human Universal Energy® (HUE) training program was founded in 1989 by Vietnamese Master Mr.
           Luong Minh Dang (1942–2007). It teaches the integration of body and soul, operating on the principle that
@@ -448,18 +695,18 @@
           exclusively through independent, unaffiliated facilitators who are certified, trained, licensed, and
           registered with a personal ID number by HUE FACULTY, Inc.</p>
 
-        <div class="three">
-          <div>
+        <div class="grid-3 features">
+          <div class="feature">
             <h3>Who can learn</h3>
             <p>Any individual from any country, culture, race, and religion.</p>
           </div>
-          <div>
-            <h3>What we Practice</h3>
-            <p>Meditation is a method which helps each one of us free from illusion - attain enlightenment.</p>
+          <div class="feature">
+            <h3>What we practice</h3>
+            <p>Meditation is a method which helps each one of us become free from illusion and attain enlightenment.</p>
           </div>
-          <div>
-            <h3>Benefits of Applying</h3>
-            <p>Generated Universal Energy is to serve all of mankind. And not for self interest.</p>
+          <div class="feature">
+            <h3>Benefits of applying</h3>
+            <p>Generated Universal Energy is to serve all of mankind, and not for self-interest.</p>
           </div>
         </div>
       </div>
@@ -467,20 +714,19 @@
 
     <section id="master" class="band">
       <div class="wrap two">
-        <div class="portrait" role="img" aria-label="Space for a portrait of Master Luong Minh Dang"> <img
-            src="MasterDang.jpg" alt="Master Luong Minh Dang" width="500" height="645"
-            style="border-radius: 175px 175px 0 0;">
+        <div class="portrait">
+          <img src="MasterDang.jpg" alt="Master Luong Minh Dang" width="500" height="645" loading="lazy">
         </div>
         <div>
-          <h2>About Founder </h2>
-          <p><b>Mr. LƯƠNG MINH ÐÁNG</b> (1942 – 2007) was the founder of the Human Universal Energy® (HUE) Teaching. He
-            was born
-            in 1942 in the countryside of Cái Bè, Tiền Giang, Vietnam. In 1972, he conceived the Human Universal Energy®
-            (HUE) method, studied and practiced it up until 1989. On the 20th of July 1989, after 17 years of learning,
-            he founded the HUE School and taught the first Level 3 course to a group of 27 Vietnamese students in
-            California. From that point on, he continued to study, practice, and teach the HUE Method in countries all
-            around the world until he passed away in 2007. In all, he devoted 35 years of his life in teaching the HUE
-            Method to students from 65 different countries.</p>
+          <span class="eyebrow">Our founder</span>
+          <h2>About the Founder</h2>
+          <p><b>Mr. LƯƠNG MINH ÐÁNG</b> (1942 – 2007) was the founder of the Human Universal Energy® (HUE) Teaching.
+            He was born in 1942 in the countryside of Cái Bè, Tiền Giang, Vietnam. In 1972, he conceived the Human
+            Universal Energy® (HUE) method, studied and practiced it up until 1989. On the 20th of July 1989, after 17
+            years of learning, he founded the HUE School and taught the first Level 3 course to a group of 27
+            Vietnamese students in California. From that point on, he continued to study, practice, and teach the HUE
+            Method in countries all around the world until he passed away in 2007. In all, he devoted 35 years of his
+            life to teaching the HUE Method to students from 65 different countries.</p>
           <blockquote class="quote">Only human being can help human being.</blockquote>
           <a class="btn ghost" href="https://www.hue-faculty.com/en/about-us/">Read more about his teaching</a>
         </div>
@@ -489,14 +735,16 @@
 
     <section id="purpose">
       <div class="wrap">
+        <span class="eyebrow">What guides us</span>
         <h2>Our mission and vision</h2>
-        <div class="values">
+        <div class="grid-3">
           <div class="card">
             <h3>Values</h3>
-            <p><b>Love</b> - Acts of love using your Chakra 6<br>
-              <b>Enlightenment</b> - Live with an enlightened body (Soul-Body)<br>
-              <b>Mankind</b> - To serve humanity and all living creatures of different species
-            </p>
+            <ul>
+              <li><b>Love</b> — Acts of love using your Chakra 6</li>
+              <li><b>Enlightenment</b> — Live with an enlightened body (Soul-Body)</li>
+              <li><b>Mankind</b> — To serve humanity and all living creatures of different species</li>
+            </ul>
           </div>
           <div class="card">
             <h3>Mission</h3>
@@ -504,9 +752,7 @@
           </div>
           <div class="card">
             <h3>Vision</h3>
-            <p>The Festival of Flowers<br>
-              “Long Hoa”<br>
-              A sincere smile on everyone’s face</p>
+            <p>The Festival of Flowers, “Long Hoa” — a sincere smile on everyone’s face.</p>
           </div>
         </div>
       </div>
@@ -515,22 +761,22 @@
     <section id="president" class="band">
       <div class="wrap two">
         <div>
+          <span class="eyebrow">Leadership</span>
           <h2>About the President</h2>
-          <p><strong>Mr. Luong Minh Trung, BSSW, MSW</strong><br><span style="color:var(--muted)">President, HUE
-              Faculty</span></p>
+          <p><strong>Mr. Luong Minh Trung, BSSW, MSW</strong><span class="role">President, HUE Faculty</span></p>
           <p>Mr. Trung Luong is the President of the HUE FACULTY® on behalf of MANKIND ENLIGHTENMENT LOVE, Inc.
-            (M.E.L.). He joined the HUE School full-time in December 1995 after earning his degree in Social Work with a
-            concentration in Community.</p>
-          <p>At a December 1995 seminar in Geneva, Switzerland, founder Master Dang publicly appointed Mr. Trung to lead
-            the H.U.E. Headquarters in Saint Louis, Missouri, and direct all centers worldwide. In this role, he
+            (M.E.L.). He joined the HUE School full-time in December 1995 after earning his degree in Social Work with
+            a concentration in Community.</p>
+          <p>At a December 1995 seminar in Geneva, Switzerland, founder Master Dang publicly appointed Mr. Trung to
+            lead the H.U.E. Headquarters in Saint Louis, Missouri, and direct all centers worldwide. In this role, he
             coordinated global seminars, managed the Master’s international travel, and served as the primary liaison
             for all student and director communications.</p>
-          <p>After Master Dang’s passing, Mr. Trung has expanded his leadership. Today, he is a certified
-            facilitator for all HUE Levels, a certified M.E.L. Coach providing individual student guidance, and the
-            creator of supplementary courses designed to deepen the understanding of the HUE Philosophy.</p>
+          <p>After Master Dang’s passing, Mr. Trung has expanded his leadership. Today, he is a certified facilitator
+            for all HUE Levels, a certified M.E.L. Coach providing individual student guidance, and the creator of
+            supplementary courses designed to deepen the understanding of the HUE Philosophy.</p>
         </div>
-        <div class="portrait" role="img" aria-label="Space for a portrait of the President"><img src="Trung.jpg"
-            alt="Mr. Luong Minh Trung" width="500" height="645" style="border-radius: 175px 175px 0 0;">
+        <div class="portrait">
+          <img src="Trung.jpg" alt="Mr. Luong Minh Trung" width="500" height="645" loading="lazy">
         </div>
       </div>
     </section>
@@ -538,10 +784,11 @@
     <section id="contact" class="contact">
       <div class="wrap two">
         <div>
+          <span class="eyebrow">Get in touch</span>
           <h2>We’d love to hear from you</h2>
           <p>Questions about enrollment, courses or healing requests are always welcome. Write to us and we’ll reply
             with care.</p>
-          <div class="btns" style="justify-content:flex-start">
+          <div class="btns">
             <a class="btn primary" href="https://www.hue-faculty.com/en/contact/">Send a message</a>
             <a class="btn ghost" href="https://calendly.com/huefaculty">Book an appointment</a>
           </div>
@@ -556,6 +803,10 @@
             <dd><a href="https://wa.me/19493459894">+1 (949) 345-9894</a></dd>
           </div>
           <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:info@hue-faculty.com">info@hue-faculty.com</a></dd>
+          </div>
+          <div>
             <dt>Follow</dt>
             <dd><a href="https://www.facebook.com/huefaculty">Facebook</a> and <a
                 href="https://www.instagram.com/huefaculty">Instagram</a></dd>
@@ -567,13 +818,113 @@
 
   <footer>
     <div class="wrap">
-      <p style="margin:0 auto .5rem">HUE FACULTY® on behalf of MANKIND ENLIGHTENMENT LOVE®</p>
-      <a href="Disclaimer.html">Disclaimer</a>
-      <a href="Terms_Conditions.html">Terms</a>
-      <a href="Privacy_Policy.html">Privacy</a>
+      <p class="footer-mail"><a href="mailto:info@hue-faculty.com">info@hue-faculty.com</a></p>
+      <p>HUE FACULTY® on behalf of MANKIND ENLIGHTENMENT LOVE®</p>
+      <div class="footer-links">
+        <a href="Disclaimer.html">Disclaimer</a>
+        <a href="Terms_Conditions.html">Terms</a>
+        <a href="Privacy_Policy.html">Privacy</a>
+      </div>
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var header = document.getElementById('site-header');
+      var menuBtn = document.querySelector('.menu-toggle');
+      var subItems = document.querySelectorAll('.has-sub');
+
+      /* Keep sticky offsets in sync with the real header height */
+      function setHeaderHeight() {
+        document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+      }
+      setHeaderHeight();
+      if ('ResizeObserver' in window) new ResizeObserver(setHeaderHeight).observe(header);
+      else window.addEventListener('resize', setHeaderHeight);
+
+      /* Mobile menu */
+      function setMenu(open) {
+        header.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', open);
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      menuBtn.addEventListener('click', function () {
+        setMenu(!header.classList.contains('menu-open'));
+      });
+
+      /* Courses dropdown (click/tap + keyboard; hover handled in CSS on desktop) */
+      function closeSubs(except) {
+        subItems.forEach(function (li) {
+          if (li !== except) {
+            li.classList.remove('open');
+            li.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+      subItems.forEach(function (li) {
+        var btn = li.querySelector('.sub-toggle');
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = !li.classList.contains('open');
+          closeSubs(li);
+          li.classList.toggle('open', open);
+          btn.setAttribute('aria-expanded', open);
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.has-sub')) closeSubs();
+        if (!e.target.closest('.site-header')) setMenu(false);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { closeSubs(); setMenu(false); }
+      });
+
+      /* Close the mobile menu after choosing a link */
+      document.querySelectorAll('.site-nav a').forEach(function (a) {
+        a.addEventListener('click', function () { setMenu(false); closeSubs(); });
+      });
+
+      /* Highlight the current section in "On this page" */
+      var tocLinks = document.querySelectorAll('.toc a');
+      var map = {};
+      tocLinks.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+
+      function activate(id) {
+        tocLinks.forEach(function (a) { a.classList.remove('active'); });
+        var link = map[id];
+        if (link) {
+          link.classList.add('active');
+          var list = link.closest('ul');
+          if (list.scrollWidth > list.clientWidth) {
+            list.scrollTo({ left: link.offsetLeft - 24, behavior: 'smooth' });
+          }
+        }
+      }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) activate(en.target.id); });
+        }, { rootMargin: '-35% 0px -60% 0px' });
+        Object.keys(map).forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) io.observe(el);
+        });
+      }
+      activate('top');
+
+      /* Show the side panel only once the Welcome area has scrolled away */
+      var hero = document.getElementById('top');
+      if ('IntersectionObserver' in window && hero) {
+        new IntersectionObserver(function (entries) {
+          document.body.classList.toggle('past-hero', !entries[0].isIntersecting);
+        }, { rootMargin: '-' + (header.offsetHeight + 40) + 'px 0px 0px 0px' }).observe(hero);
+      } else {
+        document.body.classList.add('past-hero');
+      }
+    })();
+  </script>
 </body>
 
 </html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact Us – HUE Faculty</title>
+  <meta name="description" content="Contact HUE Faculty: send a message, apply for a course, register for an event or send a healing request.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ============ Design tokens (shared with index.html) ============ */
+    :root {
+      --bg: #F6F8F4; --surface: #FFFFFF; --soft: #EAF0E6; --ink: #0E1B15; --muted: #5C6E64;
+      --sage: #8FA68E; --gold: #B98F45; --gold-light: #E7C67E; --glow: #F3E3BC; --line: #DCE4D8;
+      --aura-core: rgba(246, 214, 140, .85); --aura-mid: rgba(222, 180, 95, .38); --aura-edge: rgba(201, 162, 94, .12);
+      --logo-opacity: .26;
+      --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+      --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --header-h: 84px; --wrap: 1040px; --toc-w: 210px;
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #16211C; --surface: #1E2C25; --soft: #1B2822; --ink: #EEF2EA; --muted: #A9B8AE;
+        --gold: #D8B57A; --gold-light: #E9CB8E; --glow: #3A3524; --line: #2E4036;
+        --aura-core: rgba(232, 196, 120, .45); --aura-mid: rgba(216, 181, 122, .18); --aura-edge: rgba(216, 181, 122, .06);
+        --logo-opacity: .2; color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #16211C; --surface: #1E2C25; --soft: #1B2822; --ink: #EEF2EA; --muted: #A9B8AE;
+      --gold: #D8B57A; --gold-light: #E9CB8E; --glow: #3A3524; --line: #2E4036;
+      --aura-core: rgba(232, 196, 120, .45); --aura-mid: rgba(216, 181, 122, .18); --aura-edge: rgba(216, 181, 122, .06);
+      --logo-opacity: .2; color-scheme: dark;
+    }
+
+    /* ============ Base ============ */
+    *, *::before, *::after { box-sizing: border-box }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 1.5rem); -webkit-text-size-adjust: 100% }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.7; padding-bottom: env(safe-area-inset-bottom, 0px); overflow-x: hidden }
+    img { max-width: 100%; display: block }
+    a { color: inherit; text-underline-offset: 4px }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.5rem }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; margin: 0 }
+    h2 { font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 1.25rem }
+    h3 { font-size: 1.6rem; margin-bottom: .5rem }
+    p { margin: 0 0 1rem; max-width: 64ch }
+    .muted { color: var(--muted) }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+    .eyebrow { display: inline-block; font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem }
+
+    /* ============ Header ============ */
+    .site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 90%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top, 0px) }
+    .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding-top: .7rem; padding-bottom: .7rem }
+    .brand { display: flex; align-items: center; gap: .85rem; text-decoration: none; min-width: 0 }
+    .brand img { width: 56px; height: 56px; object-fit: contain; flex-shrink: 0 }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.1; min-width: 0 }
+    .brand-name { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; letter-spacing: .03em }
+    .brand-sub { font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: .3rem }
+
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: .35rem }
+    .nav-link { display: inline-flex; align-items: center; gap: .35rem; padding: .55rem .9rem; border: 0; border-radius: 999px; background: none; font: inherit; font-size: .95rem; font-weight: 500; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .2s, background .2s }
+    .nav-link:hover, .has-sub.open > .nav-link, .nav-link[aria-current="page"] { color: var(--ink); background: var(--soft) }
+    .chev { width: 12px; height: 12px; transition: transform .25s }
+    .has-sub.open .chev { transform: rotate(180deg) }
+    .has-sub { position: relative }
+    .submenu { list-style: none; margin: 0; padding: .5rem; position: absolute; top: calc(100% + .6rem); left: 50%; min-width: 230px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 18px 40px -18px rgba(14, 27, 21, .28); opacity: 0; visibility: hidden; transform: translate(-50%, 8px); transition: opacity .2s, transform .2s, visibility .2s; z-index: 60 }
+    .submenu::before { content: ""; position: absolute; left: 0; right: 0; top: -.7rem; height: .7rem }
+    .has-sub.open .submenu, .has-sub:focus-within .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0) }
+    @media (hover: hover) and (min-width: 901px) {
+      .has-sub:hover .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0) }
+      .has-sub:hover .chev { transform: rotate(180deg) }
+    }
+    .submenu a { display: block; padding: .65rem 1rem; border-radius: 12px; text-decoration: none; font-size: .95rem; color: var(--ink) }
+    .submenu a:hover, .submenu a:focus-visible { background: var(--soft) }
+    .submenu small { display: block; font-size: .8rem; color: var(--muted); line-height: 1.35 }
+
+    .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--ink); cursor: pointer; flex-shrink: 0; align-items: center; justify-content: center }
+    .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after { display: block; width: 18px; height: 1.5px; background: currentColor; border-radius: 2px; position: relative; transition: transform .25s, background .25s }
+    .menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0 }
+    .menu-toggle span::before { top: -6px }
+    .menu-toggle span::after { top: 6px }
+    .menu-open .menu-toggle span { background: transparent }
+    .menu-open .menu-toggle span::before { transform: translateY(6px) rotate(45deg) }
+    .menu-open .menu-toggle span::after { transform: translateY(-6px) rotate(-45deg) }
+
+    /* ============ Hero with radiating logo ============ */
+    .hero { position: relative; overflow: hidden; text-align: center; padding: clamp(4rem, 9vw, 6.5rem) 0 clamp(4.5rem, 10vw, 7rem); isolation: isolate }
+    .aura { position: absolute; left: 50%; top: 50%; width: min(680px, 130vw); aspect-ratio: 1; transform: translate(-50%, -50%); z-index: -1; pointer-events: none; display: grid; place-items: center }
+    .aura-glow { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 50% 50%, var(--aura-core) 0%, var(--aura-mid) 28%, var(--aura-edge) 50%, transparent 70%); animation: breathe 7s ease-in-out infinite }
+    .aura-ring { position: absolute; width: 46%; aspect-ratio: 1; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent); opacity: 0; animation: radiate 9s ease-out infinite }
+    .aura-ring:nth-child(3) { animation-delay: 3s }
+    .aura-ring:nth-child(4) { animation-delay: 6s }
+    .aura-logo { position: relative; width: 44%; height: auto; opacity: var(--logo-opacity); filter: drop-shadow(0 0 24px rgba(231, 190, 104, .75)) drop-shadow(0 0 60px rgba(231, 190, 104, .45)) }
+    @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.06); opacity: 1 } }
+    @keyframes radiate { 0% { transform: scale(.9); opacity: .7 } 100% { transform: scale(2.1); opacity: 0 } }
+    .hero .tag { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem, 2.5vw, 1.4rem); color: var(--gold); margin: 0 auto 1rem }
+    .hero h1 { font-size: clamp(2.6rem, 8vw, 5.5rem); margin-bottom: 1.25rem }
+    .hero .lead { margin: 0 auto; font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--muted); max-width: 60ch }
+
+    /* ============ Buttons ============ */
+    .btns { display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: .8rem 1.7rem; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .98rem; border: 1.5px solid var(--ink); transition: background .2s, color .2s }
+    .btn.primary { background: var(--ink); color: var(--bg) }
+    .btn.primary:hover { background: transparent; color: var(--ink) }
+    .btn.ghost:hover { background: var(--ink); color: var(--bg) }
+
+    /* ============ Sections ============ */
+    section { padding: clamp(3.5rem, 8vw, 5.5rem) 0 }
+    .band { background: var(--soft) }
+    .title { text-align: center }
+    .title p { margin: 0 auto 2.5rem; color: var(--muted) }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(1.6rem, 3vw, 2.25rem) }
+    .card p { margin: 0; color: var(--muted) }
+    .card h3 small { display: block; font: italic 500 1.1rem var(--serif); color: var(--gold); margin-top: .35rem }
+
+    /* Contact forms */
+    .seg { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem }
+    .seg button { font: 600 .95rem var(--sans); min-height: 44px; padding: .6rem 1.3rem; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; transition: background .2s, color .2s }
+    .seg button:hover { background: var(--soft) }
+    .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg) }
+    .fc { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(1.5rem, 4vw, 2.5rem); max-width: 760px; margin: 0 auto }
+    .fc h2 { font-size: clamp(1.8rem, 3.5vw, 2.2rem); margin-bottom: .5rem }
+    .row { margin-bottom: 1.15rem }
+    label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: .4rem }
+    label i { color: var(--gold); font-style: normal }
+    input, select, textarea { width: 100%; font: inherit; font-size: 1rem; min-height: 48px; padding: .75rem 1rem; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); color: var(--ink); transition: border-color .2s, box-shadow .2s }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gold) 22%, transparent) }
+    textarea { min-height: 130px; resize: vertical }
+    .chk { display: flex; gap: .75rem; align-items: flex-start; font-weight: 400; line-height: 1.55 }
+    .chk input { width: 20px; height: 20px; min-height: 0; margin-top: .15rem; flex-shrink: 0; accent-color: var(--gold) }
+    .hint { font-size: .9rem; color: var(--muted) }
+    .note { background: var(--soft); border-left: 4px solid var(--gold); border-radius: 14px; padding: 1rem 1.25rem; margin: 0 0 1.5rem; font-size: .95rem }
+    .note p { margin: 0 0 .4rem; max-width: none }
+    .note p:last-child { margin: 0 }
+    .note ul { margin: .4rem 0 0; padding-left: 1.2rem }
+    .acts { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.75rem }
+    .acts button { font: 600 .98rem var(--sans); min-height: 48px; padding: .8rem 1.7rem; border-radius: 999px; border: 1.5px solid var(--ink); cursor: pointer; transition: background .2s, color .2s }
+    .acts .go { background: var(--ink); color: var(--bg) }
+    .acts .go:hover { background: transparent; color: var(--ink) }
+    .acts .cp { background: transparent; color: var(--ink) }
+    .acts .cp:hover { background: var(--ink); color: var(--bg) }
+    #preview { display: none; max-width: 760px; margin: 1.25rem auto 0 }
+    #preview textarea { min-height: 180px; font-size: .9rem }
+
+    /* Other ways */
+    .ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.25rem }
+    .way { display: flex; flex-direction: column; gap: .35rem }
+    .way h3 { font-size: 1.45rem; color: var(--gold); margin: 0 }
+    .way p { color: var(--ink) }
+    .way p a { font-weight: 600; white-space: nowrap }
+    .way .social { margin-top: .35rem; gap: .45rem }
+    .way .social a { width: 40px; height: 40px }
+    .appt { margin-top: 2rem }
+
+    /* ============ Footer ============ */
+    .site-footer { border-top: 1px solid var(--line); background: var(--soft); color: var(--muted); font-size: .95rem }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; padding: 3rem 0 2.25rem }
+    .footer-brand { display: flex; align-items: center; gap: 1rem }
+    .footer-brand img { width: 64px; height: 64px; object-fit: contain }
+    .footer-brand strong { display: block; font: 600 1.45rem var(--serif); color: var(--ink); letter-spacing: .03em; line-height: 1.2 }
+    .footer-brand span { display: block; line-height: 1.6 }
+    .footer-brand a { text-decoration: none }
+    .footer-brand a:hover { color: var(--ink) }
+    .social { display: flex; gap: .65rem; list-style: none; margin: 0; padding: 0 }
+    .social a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; color: var(--ink); transition: background .2s, color .2s, border-color .2s }
+    .social a:hover { background: var(--ink); color: var(--bg); border-color: var(--ink) }
+    .social svg { width: 18px; height: 18px }
+    .footer-bottom { border-top: 1px solid var(--line); padding: 1.75rem 0 2.25rem; text-align: center; font-size: .9rem }
+    .footer-bottom p { margin: 0 auto .75rem; max-width: none }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem 1.5rem }
+
+    /* ============ Tablet & mobile ============ */
+    @media (max-width: 900px) {
+      .menu-toggle { display: inline-flex }
+      .site-nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -30px rgba(14, 27, 21, .4); max-height: 0; overflow: hidden; visibility: hidden; transition: max-height .3s ease, visibility .3s }
+      .menu-open .site-nav { max-height: 80vh; overflow-y: auto; visibility: visible }
+      .nav-list { flex-direction: column; align-items: stretch; gap: 0; padding: .75rem 1.5rem 1.25rem }
+      .nav-list > li { border-bottom: 1px solid var(--line) }
+      .nav-list > li:last-child { border-bottom: 0 }
+      .nav-link { width: 100%; justify-content: space-between; padding: 1rem .25rem; border-radius: 0; font-size: 1.05rem; color: var(--ink) }
+      .nav-link:hover, .has-sub.open > .nav-link, .nav-link[aria-current="page"] { background: none }
+      .submenu { position: static; transform: none; min-width: 0; border: 0; box-shadow: none; background: var(--soft); border-radius: 14px; padding: 0; max-height: 0; overflow: hidden; opacity: 1; transition: max-height .3s ease, padding .3s, margin .3s }
+      .submenu::before { display: none }
+      .has-sub:focus-within .submenu { transform: none }
+      .has-sub:not(.open) .submenu { visibility: hidden }
+      .has-sub.open .submenu { max-height: 400px; padding: .4rem; margin-bottom: 1rem; transform: none }
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 0 1.15rem }
+      .brand img { width: 46px; height: 46px }
+      .brand-name { font-size: 1.2rem }
+      .brand-sub { font-size: .56rem; letter-spacing: .1em }
+      .btns .btn { flex: 1 1 100% }
+      .acts button { flex: 1 1 100% }
+      .seg { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem }
+      .seg button { padding: .55rem .6rem; font-size: .88rem; line-height: 1.25 }
+      .footer-top { flex-direction: column; align-items: flex-start }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto }
+      .aura-glow, .aura-ring { animation: none }
+      .aura-ring { display: none }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="HUE Faculty – home">
+        <img src="logo.png" alt="" width="56" height="56">
+        <span class="brand-text">
+          <span class="brand-name">HUE FACULTY®</span>
+          <span class="brand-sub">on behalf of Mankind · Enlightenment · Love®</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li class="has-sub">
+            <button class="nav-link sub-toggle" type="button" aria-expanded="false" aria-controls="courses-menu">
+              Courses
+              <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8.5l4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="submenu" id="courses-menu">
+              <li><a href="HUE_Level.html">HUE Level<small>Basic to Specialized, 01–08 HUE</small></a></li>
+              <li><a href="Other_Course.html">Other Courses<small>HUE Development courses</small></a></li>
+              <li><a href="1_on_1Coaching.html">1-on-1 Coaching<small>Individual M.E.L. guidance</small></a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="Calendar.html">Events</a></li>
+          <li><a class="nav-link" href="Explore.html">Explore</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="aura" aria-hidden="true">
+        <div class="aura-glow"></div>
+        <span class="aura-ring"></span>
+        <span class="aura-ring"></span>
+        <span class="aura-ring"></span>
+        <img class="aura-logo" src="logo.png" alt="">
+      </div>
+      <div class="wrap">
+        <p class="tag">We’d love to hear from you.</p>
+        <h1>Contact Us</h1>
+        <p class="lead">Send us a message, apply for a course, register for an event, or share a healing request.
+          Choose below and we’ll take it from there.</p>
+      </div>
+    </section>
+
+    <section id="write">
+      <div class="wrap">
+        <div class="title">
+          <span class="eyebrow">Write to us</span>
+          <h2>How can we help?</h2>
+          <p>Choose what you’d like to do.</p>
+        </div>
+        <div class="seg" id="seg" role="group" aria-label="What would you like to do?"></div>
+        <form class="fc" id="form" novalidate></form>
+        <div id="preview"><label for="pt">Your message, ready to send to <span id="to"></span></label><textarea id="pt" readonly></textarea></div>
+      </div>
+    </section>
+
+    <section id="reach" class="band">
+      <div class="wrap">
+        <div class="title">
+          <span class="eyebrow">Other ways</span>
+          <h2>Other ways to reach us</h2>
+          <p>Prefer to talk? Reach us whichever way suits you.</p>
+        </div>
+        <div class="ways">
+          <div class="card way"><h3>Visit</h3><p>Saint Louis, Missouri, USA</p></div>
+          <div class="card way"><h3>WhatsApp</h3><p><a href="https://wa.me/19493459894">+1 (949) 345-9894</a></p></div>
+          <div class="card way"><h3>Email</h3><p><a href="mailto:info@hue-faculty.com">info@hue-faculty.com</a></p></div>
+          <div class="card way"><h3>Follow</h3>
+            <ul class="social" aria-label="Follow HUE Faculty">
+          <li><a href="https://www.facebook.com/huefaculty" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8.1v3h2.5V21h2.9z"/></svg></a></li>
+          <li><a href="https://twitter.com/huefaculty" aria-label="Twitter" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.3L5.4 21H2.3l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.5l11.2 14.5z"/></svg></a></li>
+          <li><a href="https://www.instagram.com/huefaculty" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a></li>
+          <li><a href="#" aria-label="YouTube channel" target="_blank" rel="noopener"><!-- TODO: add YouTube channel URL -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8 1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg></a></li>
+        </ul>
+          </div>
+        </div>
+        <div class="btns appt"><a class="btn ghost" href="https://calendly.com/huefaculty">Book an appointment</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo.png" alt="" width="64" height="64">
+          <div>
+            <strong>HUE FACULTY®</strong>
+            <span>Saint Louis, Missouri, USA</span>
+            <span>WhatsApp: <a href="https://wa.me/19493459894">+1 (949) 345-9894</a></span>
+            <span>Email: <a href="mailto:info@hue-faculty.com">info@hue-faculty.com</a></span>
+          </div>
+        </div>
+        <ul class="social" aria-label="Social media">
+          <li><a href="https://www.facebook.com/huefaculty" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8.1v3h2.5V21h2.9z"/></svg></a></li>
+          <li><a href="https://twitter.com/huefaculty" aria-label="Twitter" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.3L5.4 21H2.3l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.5l11.2 14.5z"/></svg></a></li>
+          <li><a href="https://www.instagram.com/huefaculty" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a></li>
+          <li><a href="#" aria-label="YouTube channel" target="_blank" rel="noopener"><!-- TODO: add YouTube channel URL -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8 1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg></a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>HUE FACULTY® on behalf of MANKIND ENLIGHTENMENT LOVE®</p>
+        <div class="footer-links">
+          <a href="Disclaimer.html">Disclaimer</a>
+          <a href="Terms_Conditions.html">Terms</a>
+          <a href="Privacy_Policy.html">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== SETUP: the address that receives every message from this page =====
+    var MAIL="info@hue-faculty.com";
+    var TERMS="Terms_Conditions.html",PRIV="Privacy_Policy.html";
+    var COURSES=["01-HUE The Method and Practice of Human Universal Energy®","02-HUE The Level 6 Seminar","03-HUE The Level 7 and 7 Special Seminar","04-HUE Development of the Human Latent Abilities","05-HUE The Brain of Primordial Man","06-HUE Oriental Philosophy Seminar","07-HUE Applying Spiritual Science I","08-HUE Applying Spiritual Science II","01-REV Revisit of Techniques - Basic Level","02-REV Revisit of Techniques - Intermediate Level I","03-REV Revisit of Techniques - Intermediate Level II","04-REV Revisit of Techniques - Advanced Level I","05-REV Revisit of Techniques - Advanced Level II","06-REV Revisit of Techniques - Oriental Philosophy","07-REV Revisit of Techniques - Level 19","08-REV Revisit of Techniques - Level 20","03-PRS C6 Application Meeting","05-PRS Advanced Contemplation Meeting","07-PRS Mekong Study Meeting","08-PRS L20 Application Meeting","01-ADL The Power Within","02-ADL HUE in Daily Life","03-ADL HUE As A Process","04-ADL HUE Level 20 Study Group","05-ADL Special Topics in Science & Spirituality","01-ROTM Life & Works of the Master","02-ROTM The Beginnings of Human-Universal Energy","03-ROTM The Roots of the Master Experience","04-ROTM Implementation of the Master’s Vision","05-ROTM The Roots in Vietnam","01-TRN The Red Notebook","02-TRN Handwritten Notes of the Master","03-TRN Master’s Philosophy 101","01-HQP Personal Leadership Development","02-HQP HUE Quality Process","03-HQP Best Practices in the HUE Business","01-HIB HUE Leadership Development","02-HIB HUE Techniques in Business","03-HIB HUE Quality Process"];
+    var LEVELS=["01-HUE (former Basic Level 1-5)","02-HUE (former Intermediate 1 Level 5.1-5.2-6)","03-HUE (former Intermediate 2 Level 7-7+)","04-HUE (former Advanced 1 Level 11-12-13)","05-HUE (former Advanced 2 Level 13+-13++)","06-HUE (former Specialized 1 Level 16-17-18)","07-HUE (former Specialized 2 Level 19)","08-HUE (former Specialized 3 Level 20)"];
+    var ADM=["New student","Continuing student","Auditing student","Additional admission to a development course"];
+    var YN=["Yes","No"];
+    // field: [id,label,type,required,options/placeholder]
+    var T={
+    general:{tab:"General message",h:"Leave us your info",intro:"Send us an email to request any information, for any comments, questions or suggestions you may have.",
+     f:[["name","Your name","text",1],["email","Your email","email",1],["subject","Subject","text",0],["message","Your message","textarea",1]],
+     subj:function(v){return v.subject||"Message from the HUE Faculty website"}},
+    enroll:{tab:"Apply for a course",h:"Application form",intro:"Choose the course you wish to join. You can read more about the process on our Enrollment page. Once your request is reviewed, we’ll reply with next steps and payment details.",
+     f:[["course","Desired course","select",1,COURSES],["admission","Type of admission","select",0,ADM],["name","Full name","text",1],["email","Your email","email",1],["gender","Gender","select",0,["Male","Female","N/A"]],["dob","Date of birth","text",1,"dd/mm/yyyy"],["country","Country","text",1],["future","Would you like to be informed of future events?","select",0,YN],["terms","I have read, understood and fully accept the Content, Conditions of Participation and Payment of the HUE FACULTY® Seminar or Event described.","check",1]],
+     note:"<p><b>Documents:</b> after your mail app opens, please attach a valid ID or passport and a copy of the certificate from the last HUE level you completed (PDF, JPG or PNG, each under 2 MB). Email can’t attach files automatically.</p>",
+     subj:function(v){return "Application: "+(v.course||"course")}},
+    register:{tab:"Register for an event",h:"Register for HUE events",intro:"All fields are required to determine your eligibility to join. Only requests in English will be considered.",
+     f:[["name","Your name","text",1],["email","Your email","email",1],["country","Country of residence","text",1],["level","Your current HUE level","select",1,LEVELS],["facilitator","Your last HUE facilitator","text",1],["event","Event(s) you are interested in (include all event names and dates)","textarea",1],["extra","Additional information (optional)","textarea",0],["disc","I have read the disclaimer and I confirm that I understand the terms and conditions to make a request on this page.","check",1]],
+     note:"<p><b>Please read first.</b> This form is for participants who do not have a local HUE Center or representative in their country or region.</p><ul><li>Spanish-speaking countries and regions (including Spanish-speaking US residents): please request information in Spanish.</li><li>Aruba, the Caribbean and Latin America: contact <a href=\"https://mentepositivo.com/pages/en/universalenergy/\">MEL Aruba</a>.</li><li>India and Southeast Asia: contact <a href=\"https://melindiaseva.com/\">MEL Trust India</a>.</li><li>Vietnam, or Vietnamese living abroad: write to us here to be connected with a local representative.</li></ul><p class=\"hint\" style=\"margin-top:.6rem\">HUE FACULTY® and its affiliates are not responsible for the content of third-party websites.</p>",
+     subj:function(v){return "Event registration: "+(v.event||"").split("\n")[0].slice(0,60)}},
+    healing:{tab:"Healing request",h:"Send us your list",intro:"Please use a comma (,) to separate the names on your list. Our privacy policy is <a href=\""+PRIV+"\">here</a>.",
+     f:[["name","Your name","text",1],["email","Your email","email",1],["list","Names on your list (separated by commas)","textarea",1],["message","Anything you’d like us to know (optional)","textarea",0]],
+     subj:function(){return "Healing request"}}};
+    var cur="general",vals={};
+    function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+    function render(){
+     var t=T[cur],h="<h2>"+t.h+"</h2><p class=\"muted\">"+t.intro+"</p>";
+     if(vals._pre)h+="<div class=\"note\"><p>We’ve filled in what we know from the page you came from. Please check it and complete the rest.</p></div>";
+     if(t.note)h+="<div class=\"note\">"+t.note+"</div>";
+     t.f.forEach(function(f){var id=f[0],ty=f[2],v=vals[id]||"",req=f[3]?" required":"",star=f[3]?" <i>*</i>":"";
+      if(ty==="check")h+="<div class=\"row\"><label class=\"chk\"><input type=\"checkbox\" id=\""+id+"\""+req+(v?" checked":"")+"><span>"+esc(f[1])+star+"</span></label></div>";
+      else{h+="<div class=\"row\"><label for=\""+id+"\">"+esc(f[1])+star+"</label>";
+       if(ty==="textarea")h+="<textarea id=\""+id+"\""+req+">"+esc(v)+"</textarea>";
+       else if(ty==="select"){h+="<select id=\""+id+"\""+req+"><option value=\"\">Please select</option>"+f[4].map(function(o){return "<option"+(o===v?" selected":"")+">"+esc(o)+"</option>"}).join("")+"</select>"}
+       else h+="<input id=\""+id+"\" type=\""+ty+"\""+req+" value=\""+esc(v)+"\""+(f[4]?" placeholder=\""+esc(f[4])+"\"":"")+">";
+       h+="</div>"}});
+     h+="<div class=\"acts\"><button type=\"button\" class=\"go\" id=\"send\">Open in my email</button><button type=\"button\" class=\"cp\" id=\"copy\">Copy message</button></div><p class=\"hint\" style=\"margin:1rem 0 0;max-width:none\">This opens your email app with everything filled in, addressed to us. Nothing is sent until you press send there.</p>";
+     var f=document.getElementById("form");f.innerHTML=h;
+     [].forEach.call(document.querySelectorAll("#seg button"),function(b){b.setAttribute("aria-pressed",b.dataset.k===cur)});
+     document.getElementById("preview").style.display="none";
+     document.getElementById("send").onclick=function(){go(true)};
+     document.getElementById("copy").onclick=function(){go(false)}}
+    function collect(){var t=T[cur],v={},ok=true;
+     t.f.forEach(function(f){var el=document.getElementById(f[0]);v[f[0]]=f[2]==="check"?(el.checked?"Yes":""):el.value.trim();vals[f[0]]=f[2]==="check"?el.checked:el.value.trim();
+      if(f[3]&&!v[f[0]]){ok=false}});
+     return {v:v,ok:ok}}
+    function go(open){var r=collect();
+     if(!document.getElementById("form").reportValidity()||!r.ok){return}
+     var t=T[cur],v=r.v,body="";
+     t.f.forEach(function(f){if(f[2]==="check"){if(v[f[0]])body+="Confirmed: "+f[1]+"\n"}else if(v[f[0]]){body+=f[1]+":\n"+v[f[0]]+"\n\n"}});
+     body+="\n— Sent from the HUE Faculty website ("+t.tab+")";
+     var sub=t.subj(v);
+     document.getElementById("to").textContent=MAIL;
+     document.getElementById("pt").value="To: "+MAIL+"\nSubject: "+sub+"\n\n"+body;
+     var p=document.getElementById("preview");p.style.display="block";
+     if(open){var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(sub)+"&body="+encodeURIComponent(body);a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove()}
+     else{var ta=document.getElementById("pt");ta.select();try{(navigator.clipboard?navigator.clipboard.writeText(ta.value):Promise.reject()).catch(function(){document.execCommand("copy")})}catch(e){try{document.execCommand("copy")}catch(_){}}}
+     p.scrollIntoView({behavior:"smooth",block:"nearest"})}
+    var seg=document.getElementById("seg");
+    Object.keys(T).forEach(function(k){var b=document.createElement("button");b.type="button";b.dataset.k=k;b.textContent=T[k].tab;b.onclick=function(){try{collect()}catch(e){}cur=k;render()};seg.appendChild(b)});
+    // ===== Pre-filling from other pages =====
+    // Query:  ?type=enroll&course=01-HUE&name=...   ?type=register&event=01 HUE, 1-2 Aug 2026&level=...   ?type=healing   ?type=general&subject=...
+    // Hash:   #enroll-01-hue   #register-01-hue   #healing   #general
+    function prefill(){
+     var q={},s=location.search.replace(/^\?/,"");
+     s.split("&").forEach(function(p){if(p){var kv=p.split("=");try{q[kv[0]]=decodeURIComponent((kv[1]||"").replace(/\+/g," "))}catch(e){}}});
+     var h=location.hash.replace(/^#/,"").toLowerCase();
+     if(!q.type&&h){var m=h.match(/^(general|enroll|register|healing)(?:-(.+))?$/);if(m){q.type=m[1];if(m[2]){if(m[1]==="enroll")q.course=m[2];else if(m[1]==="register")q.event=m[2].toUpperCase()}}}
+     if(!q.type||!T[q.type])return;
+     cur=q.type;vals={};var any=false;
+     if(q.course){var c=q.course.toLowerCase();COURSES.forEach(function(o){if(o.split(" ")[0].toLowerCase()===c||o.toLowerCase()===c){vals.course=o;any=true}})}
+     ["name","email","country","subject","message","facilitator","event","list","extra"].forEach(function(k){if(q[k]){vals[k]=q[k];any=true}});
+     if(q.level){LEVELS.forEach(function(o){if(o.slice(0,6).toLowerCase()===q.level.toLowerCase().slice(0,6)){vals.level=o;any=true}})}
+     if(q.admission){vals.admission=q.admission;any=true}
+     vals._pre=any}
+    prefill();render();
+    window.addEventListener("hashchange",function(){if(/^#(general|enroll|register|healing)/i.test(location.hash)){prefill();render();document.getElementById("write").scrollIntoView()}});
+    if(/^#(general|enroll|register|healing)/i.test(location.hash))setTimeout(function(){document.getElementById("write").scrollIntoView()},50);
+
+    /* ====== Shared header / side panel behaviour ====== */
+    (function () {
+      var header = document.getElementById('site-header');
+      var menuBtn = document.querySelector('.menu-toggle');
+      var subItems = document.querySelectorAll('.has-sub');
+
+      function setHeaderHeight() { document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px') }
+      setHeaderHeight();
+      if ('ResizeObserver' in window) new ResizeObserver(setHeaderHeight).observe(header);
+      else window.addEventListener('resize', setHeaderHeight);
+
+      function setMenu(open) {
+        header.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', open);
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      menuBtn.addEventListener('click', function () { setMenu(!header.classList.contains('menu-open')) });
+
+      function closeSubs(except) {
+        subItems.forEach(function (li) {
+          if (li !== except) { li.classList.remove('open'); li.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false') }
+        });
+      }
+      subItems.forEach(function (li) {
+        var btn = li.querySelector('.sub-toggle');
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = !li.classList.contains('open');
+          closeSubs(li);
+          li.classList.toggle('open', open);
+          btn.setAttribute('aria-expanded', open);
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.has-sub')) closeSubs();
+        if (!e.target.closest('.site-header')) setMenu(false);
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeSubs(); setMenu(false) } });
+      document.querySelectorAll('.site-nav a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); closeSubs() }) });
+
+    })();
+  </script>
+</body>
+
+</html>

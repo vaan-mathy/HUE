@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Explore – HUE Faculty</title>
+  <meta name="description" content="Places of remembrance, community moments, the HUE lifestyle and stories from HUE Faculty students.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Figtree:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ============ Design tokens (shared with index.html) ============ */
+    :root {
+      --bg: #F6F8F4; --surface: #FFFFFF; --soft: #EAF0E6; --ink: #0E1B15; --muted: #5C6E64;
+      --sage: #8FA68E; --gold: #B98F45; --gold-light: #E7C67E; --glow: #F3E3BC; --line: #DCE4D8;
+      --aura-core: rgba(246, 214, 140, .85); --aura-mid: rgba(222, 180, 95, .38); --aura-edge: rgba(201, 162, 94, .12);
+      --logo-opacity: .26;
+      --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+      --sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --header-h: 84px; --wrap: 1040px; --toc-w: 210px;
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #16211C; --surface: #1E2C25; --soft: #1B2822; --ink: #EEF2EA; --muted: #A9B8AE;
+        --gold: #D8B57A; --gold-light: #E9CB8E; --glow: #3A3524; --line: #2E4036;
+        --aura-core: rgba(232, 196, 120, .45); --aura-mid: rgba(216, 181, 122, .18); --aura-edge: rgba(216, 181, 122, .06);
+        --logo-opacity: .2; color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #16211C; --surface: #1E2C25; --soft: #1B2822; --ink: #EEF2EA; --muted: #A9B8AE;
+      --gold: #D8B57A; --gold-light: #E9CB8E; --glow: #3A3524; --line: #2E4036;
+      --aura-core: rgba(232, 196, 120, .45); --aura-mid: rgba(216, 181, 122, .18); --aura-edge: rgba(216, 181, 122, .06);
+      --logo-opacity: .2; color-scheme: dark;
+    }
+
+    /* ============ Base ============ */
+    *, *::before, *::after { box-sizing: border-box }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 4rem); -webkit-text-size-adjust: 100% }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 1.0625rem; line-height: 1.7; padding-bottom: env(safe-area-inset-bottom, 0px); overflow-x: hidden }
+    img { max-width: 100%; display: block }
+    a { color: inherit; text-underline-offset: 4px }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 1.5rem }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.15; margin: 0 }
+    h2 { font-size: clamp(2rem, 4vw, 2.75rem); margin-bottom: 1.25rem }
+    h3 { font-size: 1.6rem; margin-bottom: .5rem }
+    p { margin: 0 0 1rem; max-width: 64ch }
+    .muted { color: var(--muted) }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+    .eyebrow { display: inline-block; font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem }
+
+    /* ============ Header ============ */
+    .site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 90%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding-top: env(safe-area-inset-top, 0px) }
+    .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding-top: .7rem; padding-bottom: .7rem }
+    .brand { display: flex; align-items: center; gap: .85rem; text-decoration: none; min-width: 0 }
+    .brand img { width: 56px; height: 56px; object-fit: contain; flex-shrink: 0 }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.1; min-width: 0 }
+    .brand-name { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; letter-spacing: .03em }
+    .brand-sub { font-size: .66rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: .3rem }
+
+    .nav-list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: .35rem }
+    .nav-link { display: inline-flex; align-items: center; gap: .35rem; padding: .55rem .9rem; border: 0; border-radius: 999px; background: none; font: inherit; font-size: .95rem; font-weight: 500; color: var(--muted); text-decoration: none; cursor: pointer; transition: color .2s, background .2s }
+    .nav-link:hover, .has-sub.open > .nav-link, .nav-link[aria-current="page"] { color: var(--ink); background: var(--soft) }
+    .chev { width: 12px; height: 12px; transition: transform .25s }
+    .has-sub.open .chev { transform: rotate(180deg) }
+    .has-sub { position: relative }
+    .submenu { list-style: none; margin: 0; padding: .5rem; position: absolute; top: calc(100% + .6rem); left: 50%; min-width: 230px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 18px 40px -18px rgba(14, 27, 21, .28); opacity: 0; visibility: hidden; transform: translate(-50%, 8px); transition: opacity .2s, transform .2s, visibility .2s; z-index: 60 }
+    .submenu::before { content: ""; position: absolute; left: 0; right: 0; top: -.7rem; height: .7rem }
+    .has-sub.open .submenu, .has-sub:focus-within .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0) }
+    @media (hover: hover) and (min-width: 901px) {
+      .has-sub:hover .submenu { opacity: 1; visibility: visible; transform: translate(-50%, 0) }
+      .has-sub:hover .chev { transform: rotate(180deg) }
+    }
+    .submenu a { display: block; padding: .65rem 1rem; border-radius: 12px; text-decoration: none; font-size: .95rem; color: var(--ink) }
+    .submenu a:hover, .submenu a:focus-visible { background: var(--soft) }
+    .submenu small { display: block; font-size: .8rem; color: var(--muted); line-height: 1.35 }
+
+    .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--ink); cursor: pointer; flex-shrink: 0; align-items: center; justify-content: center }
+    .menu-toggle span, .menu-toggle span::before, .menu-toggle span::after { display: block; width: 18px; height: 1.5px; background: currentColor; border-radius: 2px; position: relative; transition: transform .25s, background .25s }
+    .menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0 }
+    .menu-toggle span::before { top: -6px }
+    .menu-toggle span::after { top: 6px }
+    .menu-open .menu-toggle span { background: transparent }
+    .menu-open .menu-toggle span::before { transform: translateY(6px) rotate(45deg) }
+    .menu-open .menu-toggle span::after { transform: translateY(-6px) rotate(-45deg) }
+
+    /* ============ On this page ============ */
+    .toc { position: sticky; top: var(--header-h); z-index: 40; background: color-mix(in srgb, var(--bg) 92%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line) }
+    .toc-title { font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 0; display: none }
+    .toc ul { list-style: none; margin: 0 auto; padding: .6rem 1.5rem; max-width: var(--wrap); display: flex; gap: .5rem; overflow-x: auto; scrollbar-width: none }
+    .toc ul::-webkit-scrollbar { display: none }
+    .toc a { display: block; white-space: nowrap; padding: .3rem .85rem; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-size: .88rem; color: var(--muted); transition: color .2s, border-color .2s, background .2s }
+    .toc a:hover { color: var(--ink) }
+    .toc a.active { color: var(--ink); border-color: var(--gold); background: color-mix(in srgb, var(--glow) 55%, transparent) }
+
+    /* ============ Hero with radiating logo ============ */
+    .hero { position: relative; overflow: hidden; text-align: center; padding: clamp(4rem, 9vw, 6.5rem) 0 clamp(4.5rem, 10vw, 7rem); isolation: isolate }
+    .aura { position: absolute; left: 50%; top: 50%; width: min(680px, 130vw); aspect-ratio: 1; transform: translate(-50%, -50%); z-index: -1; pointer-events: none; display: grid; place-items: center }
+    .aura-glow { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 50% 50%, var(--aura-core) 0%, var(--aura-mid) 28%, var(--aura-edge) 50%, transparent 70%); animation: breathe 7s ease-in-out infinite }
+    .aura-ring { position: absolute; width: 46%; aspect-ratio: 1; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent); opacity: 0; animation: radiate 9s ease-out infinite }
+    .aura-ring:nth-child(3) { animation-delay: 3s }
+    .aura-ring:nth-child(4) { animation-delay: 6s }
+    .aura-logo { position: relative; width: 44%; height: auto; opacity: var(--logo-opacity); filter: drop-shadow(0 0 24px rgba(231, 190, 104, .75)) drop-shadow(0 0 60px rgba(231, 190, 104, .45)) }
+    @keyframes breathe { 0%, 100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.06); opacity: 1 } }
+    @keyframes radiate { 0% { transform: scale(.9); opacity: .7 } 100% { transform: scale(2.1); opacity: 0 } }
+    .hero .tag { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem, 2.5vw, 1.4rem); color: var(--gold); margin: 0 auto 1rem }
+    .hero h1 { font-size: clamp(2.6rem, 8vw, 5.5rem); margin-bottom: 1.25rem }
+    .hero .lead { margin: 0 auto; font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--muted); max-width: 60ch }
+
+    /* ============ Buttons ============ */
+    .btns { display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: .8rem 1.7rem; border-radius: 999px; text-decoration: none; font-weight: 600; font-size: .98rem; border: 1.5px solid var(--ink); transition: background .2s, color .2s }
+    .btn.primary { background: var(--ink); color: var(--bg) }
+    .btn.primary:hover { background: transparent; color: var(--ink) }
+    .btn.ghost:hover { background: var(--ink); color: var(--bg) }
+
+    /* ============ Sections ============ */
+    section { padding: clamp(3.5rem, 8vw, 5.5rem) 0 }
+    .band { background: var(--soft) }
+    .title { text-align: center }
+    .title p { margin: 0 auto 2.5rem; color: var(--muted) }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(1.6rem, 3vw, 2.25rem) }
+    .card p { margin: 0; color: var(--muted) }
+    .card h3 small { display: block; font: italic 500 1.1rem var(--serif); color: var(--gold); margin-top: .35rem }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem }
+    .card h3 { margin-top: 0 }
+
+    /* Places of remembrance */
+    .place { padding: 0; overflow: hidden; display: flex; flex-direction: column }
+    .place img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: radial-gradient(circle at 50% 35%, var(--glow), var(--soft) 70%) }
+    .place .body { padding: clamp(1.4rem, 3vw, 1.9rem) }
+
+    /* Gallery */
+    .track { display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .5rem; scrollbar-width: none; overscroll-behavior-x: contain }
+    .track::-webkit-scrollbar { display: none }
+    .slide { flex: 0 0 min(82%, 520px); scroll-snap-align: center; margin: 0 }
+    .ph { aspect-ratio: 4 / 3; border-radius: 24px; border: 1.5px dashed var(--sage); background: linear-gradient(160deg, var(--soft), var(--glow)); display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; color: var(--muted); font-size: .95rem }
+    .band .ph { background: linear-gradient(160deg, var(--surface), var(--glow)) }
+    .slide img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px }
+    .slide figcaption { margin-top: .6rem; font-size: .92rem; color: var(--muted) }
+    .arrows { display: flex; gap: .6rem; justify-content: center; margin-top: 1.25rem }
+    .arrows button { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); font-size: 1.15rem; cursor: pointer; transition: background .2s, color .2s }
+    .arrows button:hover { background: var(--ink); color: var(--bg) }
+
+    /* Lifestyle */
+    .life h3 { font-size: 1.7rem }
+    .life .num { display: block; font: 600 .78rem var(--sans); letter-spacing: .16em; color: var(--gold); margin-bottom: .6rem }
+
+    /* Stories */
+    .post { display: flex; flex-direction: column; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s }
+    .post:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 22px 40px -30px rgba(185, 143, 69, .6) }
+    .post .meta { font-size: .8rem; letter-spacing: .04em; color: var(--gold); font-weight: 600; margin-bottom: .5rem }
+    .post h3 { font-size: 1.5rem }
+    .post .more { margin-top: auto; padding-top: 1rem; font-weight: 600; font-size: .92rem }
+    .more-link { margin-top: 2.5rem }
+
+    /* ============ Footer ============ */
+    .site-footer { border-top: 1px solid var(--line); background: var(--soft); color: var(--muted); font-size: .95rem }
+    .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; padding: 3rem 0 2.25rem }
+    .footer-brand { display: flex; align-items: center; gap: 1rem }
+    .footer-brand img { width: 64px; height: 64px; object-fit: contain }
+    .footer-brand strong { display: block; font: 600 1.45rem var(--serif); color: var(--ink); letter-spacing: .03em; line-height: 1.2 }
+    .footer-brand span { display: block; line-height: 1.6 }
+    .footer-brand a { text-decoration: none }
+    .footer-brand a:hover { color: var(--ink) }
+    .social { display: flex; gap: .65rem; list-style: none; margin: 0; padding: 0 }
+    .social a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; color: var(--ink); transition: background .2s, color .2s, border-color .2s }
+    .social a:hover { background: var(--ink); color: var(--bg); border-color: var(--ink) }
+    .social svg { width: 18px; height: 18px }
+    .footer-bottom { border-top: 1px solid var(--line); padding: 1.75rem 0 2.25rem; text-align: center; font-size: .9rem }
+    .footer-bottom p { margin: 0 auto .75rem; max-width: none }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem 1.5rem }
+
+    /* ============ Large desktop: TOC as right-hand panel ============ */
+    @media (min-width: 1300px) {
+      .wrap { margin-left: max(0px, calc((100vw - var(--wrap) - var(--toc-w) - 3rem) / 2)) }
+      .hero .wrap, .site-footer .wrap { margin-left: auto }
+      .toc { opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .3s, transform .3s, visibility .3s }
+      body.past-hero .toc { opacity: 1; visibility: visible; transform: none }
+      .toc { position: fixed; top: calc(var(--header-h) + 2rem); right: max(1.5rem, calc((100vw - var(--wrap) - var(--toc-w) - 3rem) / 2)); width: var(--toc-w); background: color-mix(in srgb, var(--surface) 88%, transparent); border: 1px solid var(--line); border-radius: 20px; padding: 1.25rem 1.25rem 1rem; box-shadow: 0 20px 40px -30px rgba(14, 27, 21, .35) }
+      .toc-title { display: block; margin-bottom: .6rem }
+      .toc .toc-top { display: none }
+      .toc ul { flex-direction: column; gap: 0; padding: 0; border-left: 2px solid var(--line); overflow: visible }
+      .toc a { border: 0; border-radius: 0; padding: .35rem .9rem; margin-left: -2px; border-left: 2px solid transparent; font-size: .92rem; white-space: normal; line-height: 1.4 }
+      .toc a.active { background: none; border-left-color: var(--gold) }
+      html { scroll-padding-top: calc(var(--header-h) + 1.5rem) }
+    }
+
+    /* ============ Tablet & mobile ============ */
+    @media (max-width: 900px) {
+      .menu-toggle { display: inline-flex }
+      .site-nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -30px rgba(14, 27, 21, .4); max-height: 0; overflow: hidden; visibility: hidden; transition: max-height .3s ease, visibility .3s }
+      .menu-open .site-nav { max-height: 80vh; overflow-y: auto; visibility: visible }
+      .nav-list { flex-direction: column; align-items: stretch; gap: 0; padding: .75rem 1.5rem 1.25rem }
+      .nav-list > li { border-bottom: 1px solid var(--line) }
+      .nav-list > li:last-child { border-bottom: 0 }
+      .nav-link { width: 100%; justify-content: space-between; padding: 1rem .25rem; border-radius: 0; font-size: 1.05rem; color: var(--ink) }
+      .nav-link:hover, .has-sub.open > .nav-link, .nav-link[aria-current="page"] { background: none }
+      .submenu { position: static; transform: none; min-width: 0; border: 0; box-shadow: none; background: var(--soft); border-radius: 14px; padding: 0; max-height: 0; overflow: hidden; opacity: 1; transition: max-height .3s ease, padding .3s, margin .3s }
+      .submenu::before { display: none }
+      .has-sub:focus-within .submenu { transform: none }
+      .has-sub:not(.open) .submenu { visibility: hidden }
+      .has-sub.open .submenu { max-height: 400px; padding: .4rem; margin-bottom: 1rem; transform: none }
+    }
+
+    @media (max-width: 520px) {
+      .wrap { padding: 0 1.15rem }
+      .brand img { width: 46px; height: 46px }
+      .brand-name { font-size: 1.2rem }
+      .brand-sub { font-size: .56rem; letter-spacing: .1em }
+      .btns .btn { flex: 1 1 100% }
+      .toc ul { padding: .55rem 1.15rem }
+      .footer-top { flex-direction: column; align-items: flex-start }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto }
+      .aura-glow, .aura-ring { animation: none }
+      .aura-ring { display: none }
+      .post, .post:hover { transform: none }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-label="HUE Faculty – home">
+        <img src="logo.png" alt="" width="56" height="56">
+        <span class="brand-text">
+          <span class="brand-name">HUE FACULTY®</span>
+          <span class="brand-sub">on behalf of Mankind · Enlightenment · Love®</span>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li class="has-sub">
+            <button class="nav-link sub-toggle" type="button" aria-expanded="false" aria-controls="courses-menu">
+              Courses
+              <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4.5 6 8.5l4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="submenu" id="courses-menu">
+              <li><a href="HUE_Level.html">HUE Level<small>Basic to Specialized, 01–08 HUE</small></a></li>
+              <li><a href="Other_Course.html">Other Courses<small>HUE Development courses</small></a></li>
+              <li><a href="1_on_1Coaching.html">1-on-1 Coaching<small>Individual M.E.L. guidance</small></a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link" href="Calendar.html">Events</a></li>
+          <li><a class="nav-link" href="Contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    <ul>
+      <li class="toc-top"><a href="#top">Explore</a></li>
+      <li><a href="#remembrance">Places of Remembrance</a></li>
+      <li><a href="#gallery">Community Moments</a></li>
+      <li><a href="#lifestyle">HUE Lifestyle</a></li>
+      <li><a href="#stories">Student Stories</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="aura" aria-hidden="true">
+        <div class="aura-glow"></div>
+        <span class="aura-ring"></span>
+        <span class="aura-ring"></span>
+        <span class="aura-ring"></span>
+        <img class="aura-logo" src="logo.png" alt="">
+      </div>
+      <div class="wrap">
+        <p class="tag">Take your time. Wander gently.</p>
+        <h1>Explore</h1>
+        <p class="lead">Places, photographs, gatherings and student reflections that show how our community lives and
+          practices together.</p>
+      </div>
+    </section>
+
+    <section id="remembrance">
+      <div class="wrap">
+        <div class="title">
+          <span class="eyebrow">Sacred landmarks</span>
+          <h2>Places of remembrance</h2>
+          <p>Three landmarks that carry the spirit of the teaching.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card place">
+            <img src="Altar.jpg" alt="Mankind’s Ancestor Altar in Saint Louis" width="600" height="450" loading="lazy">
+            <div class="body"><h3>Mankind’s Ancestor Altar</h3><p>Built in Saint Louis in 2002 to honor the common ancestors of all nations and ethnic groups.</p></div>
+          </div>
+          <div class="card place">
+            <img src="big_antenna.jpg" alt="The Big Antenna model" width="600" height="450" loading="lazy">
+            <div class="body"><h3>Big Antenna Model</h3><p>A model for spreading positive energy to the souls of a country and its people.</p></div>
+          </div>
+          <div class="card place">
+            <img src="unkown_soldier.jpg" alt="The Worldwide Memorial Monument" width="600" height="450" loading="lazy">
+            <div class="body"><h3>Worldwide Memorial Monument</h3><p>Honors all souls who sacrificed in wars and in serving noble purposes for Mankind.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="band">
+      <div class="wrap">
+        <div class="title">
+          <span class="eyebrow">Gallery</span>
+          <h2>Moments from our community</h2>
+          <p>Retreats, seminars, meditations and gatherings.</p>
+        </div>
+        <div class="track" id="track">
+          <!-- To add a photo: replace <div class="ph">…</div> with <img src="photo.jpg" alt="Describe the photo"> -->
+          <figure class="slide"><div class="ph">Photo space 1<br>Add an image here</div><figcaption>Caption for photo 1</figcaption></figure>
+          <figure class="slide"><div class="ph">Photo space 2<br>Add an image here</div><figcaption>Caption for photo 2</figcaption></figure>
+          <figure class="slide"><div class="ph">Photo space 3<br>Add an image here</div><figcaption>Caption for photo 3</figcaption></figure>
+          <figure class="slide"><div class="ph">Photo space 4<br>Add an image here</div><figcaption>Caption for photo 4</figcaption></figure>
+          <figure class="slide"><div class="ph">Photo space 5<br>Add an image here</div><figcaption>Caption for photo 5</figcaption></figure>
+        </div>
+        <div class="arrows">
+          <button type="button" id="prev" aria-label="Previous photo">←</button>
+          <button type="button" id="next" aria-label="Next photo">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="lifestyle">
+      <div class="wrap">
+        <div class="title">
+          <span class="eyebrow">Our way of life</span>
+          <h2>HUE Lifestyle</h2>
+          <p>How we practice, study and gather together.</p>
+        </div>
+        <div class="grid-3">
+          <div class="card life"><span class="num">01</span><h3>Retreats</h3><p>Once a year, students practice, study and apply together in a location announced in advance.</p></div>
+          <div class="card life"><span class="num">02</span><h3>Conferences</h3><p>Every two to three years, students from different regions meet to study the Master’s teachings.</p></div>
+          <div class="card life"><span class="num">03</span><h3>Roots of the Master</h3><p>A visit in Saint Louis to the Master’s first home, his offices and the altar, with a bowl of pho at his first office.</p></div>
+          <div class="card life"><span class="num">04</span><h3>Study groups</h3><p>Students study the transcripts of the levels Master taught, on a monthly schedule.</p></div>
+          <div class="card life"><span class="num">05</span><h3>Group meditations</h3><p>We hold hands and send energy together, as Master wished since 1995.</p></div>
+          <div class="card life"><span class="num">06</span><h3>Big Antenna inaugurations</h3><p>Spreading positive energy across a country or region, first begun by Master Dang in Vietnam.</p></div>
+        </div>
+        <div class="btns more-link"><a class="btn ghost" href="https://www.hue-faculty.com/en/hue-lifestyle/">Explore HUE Lifestyle</a></div>
+      </div>
+    </section>
+
+    <section id="stories" class="band">
+      <div class="wrap">
+        <div class="title">
+          <span class="eyebrow">Reflections</span>
+          <h2>Stories from our students</h2>
+          <p>Reflections on meditation and daily practice.</p>
+        </div>
+        <div class="grid-3">
+          <a class="card post" href="https://www.hue-faculty.com/en/conquer-yourself/">
+            <span class="meta">Student writing</span>
+            <h3>Conquer yourself</h3>
+            <p>Set a time each day to practice and clear your thoughts. When we work on the inside, we bring harmony to everything around us.</p>
+            <span class="more">Read the story →</span>
+          </a>
+          <a class="card post" href="https://www.hue-faculty.com/en/living-in-a-meditative-state2/">
+            <span class="meta">1 February 2023 · Student writing</span>
+            <h3>Living in a meditative state</h3>
+            <span class="more">Read the story →</span>
+          </a>
+          <a class="card post" href="https://www.hue-faculty.com/en/achieving-perfection-for-all/">
+            <span class="meta">19 January 2023 · Student writing</span>
+            <h3>Achieving Perfection for All</h3>
+            <span class="more">Read the story →</span>
+          </a>
+          <a class="card post" href="https://www.hue-faculty.com/en/5-minutes/">
+            <span class="meta">27 October 2022 · Student writing</span>
+            <h3>5 minutes</h3>
+            <span class="more">Read the story →</span>
+          </a>
+          <a class="card post" href="https://www.hue-faculty.com/en/why-is-meditation-essential/">
+            <span class="meta">Student writing</span>
+            <h3>Why is meditation essential</h3>
+            <span class="more">Read the story →</span>
+          </a>
+          <a class="card post" href="https://www.hue-faculty.com/en/out-with-the-old-in-with-the-new/">
+            <span class="meta">Student writing</span>
+            <h3>Out with the old, in with the new</h3>
+            <span class="more">Read the story →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo.png" alt="" width="64" height="64">
+          <div>
+            <strong>HUE FACULTY®</strong>
+            <span>Saint Louis, Missouri, USA</span>
+            <span>WhatsApp: <a href="https://wa.me/19493459894">+1 (949) 345-9894</a></span>
+            <span>Email: <a href="mailto:info@hue-faculty.com">info@hue-faculty.com</a></span>
+          </div>
+        </div>
+        <ul class="social" aria-label="Social media">
+          <li><a href="https://www.facebook.com/huefaculty" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8.1v3h2.5V21h2.9z"/></svg></a></li>
+          <li><a href="https://twitter.com/huefaculty" aria-label="Twitter" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 3h3.1l-6.8 7.7 8 10.3h-6.2l-4.9-6.3L5.4 21H2.3l7.2-8.3L1.9 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.5l11.2 14.5z"/></svg></a></li>
+          <li><a href="https://www.instagram.com/huefaculty" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a></li>
+          <li><a href="#" aria-label="YouTube channel" target="_blank" rel="noopener"><!-- TODO: add YouTube channel URL -->
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8c.2.9.9 1.6 1.8 1.8 1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg></a></li>
+        </ul>
+      </div>
+      <div class="footer-bottom">
+        <p>HUE FACULTY® on behalf of MANKIND ENLIGHTENMENT LOVE®</p>
+        <div class="footer-links">
+          <a href="Disclaimer.html">Disclaimer</a>
+          <a href="Terms_Conditions.html">Terms</a>
+          <a href="Privacy_Policy.html">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Gallery arrows */
+    (function () {
+      var t = document.getElementById('track');
+      function go(d) { t.scrollBy({ left: d * (t.firstElementChild.offsetWidth + 20), behavior: 'smooth' }) }
+      document.getElementById('prev').addEventListener('click', function () { go(-1) });
+      document.getElementById('next').addEventListener('click', function () { go(1) });
+    })();
+
+    /* ====== Shared header / side panel behaviour ====== */
+    (function () {
+      var header = document.getElementById('site-header');
+      var menuBtn = document.querySelector('.menu-toggle');
+      var subItems = document.querySelectorAll('.has-sub');
+
+      function setHeaderHeight() { document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px') }
+      setHeaderHeight();
+      if ('ResizeObserver' in window) new ResizeObserver(setHeaderHeight).observe(header);
+      else window.addEventListener('resize', setHeaderHeight);
+
+      function setMenu(open) {
+        header.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', open);
+        menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      }
+      menuBtn.addEventListener('click', function () { setMenu(!header.classList.contains('menu-open')) });
+
+      function closeSubs(except) {
+        subItems.forEach(function (li) {
+          if (li !== except) { li.classList.remove('open'); li.querySelector('.sub-toggle').setAttribute('aria-expanded', 'false') }
+        });
+      }
+      subItems.forEach(function (li) {
+        var btn = li.querySelector('.sub-toggle');
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = !li.classList.contains('open');
+          closeSubs(li);
+          li.classList.toggle('open', open);
+          btn.setAttribute('aria-expanded', open);
+        });
+      });
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.has-sub')) closeSubs();
+        if (!e.target.closest('.site-header')) setMenu(false);
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeSubs(); setMenu(false) } });
+      document.querySelectorAll('.site-nav a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); closeSubs() }) });
+
+      var tocLinks = document.querySelectorAll('.toc a');
+      var map = {};
+      tocLinks.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a });
+      function activate(id) {
+        tocLinks.forEach(function (a) { a.classList.remove('active') });
+        var link = map[id];
+        if (link) {
+          link.classList.add('active');
+          var list = link.closest('ul');
+          if (list.scrollWidth > list.clientWidth) list.scrollTo({ left: link.offsetLeft - 24, behavior: 'smooth' });
+        }
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) activate(en.target.id) });
+        }, { rootMargin: '-35% 0px -60% 0px' });
+        Object.keys(map).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el) });
+
+        var hero = document.getElementById('top');
+        new IntersectionObserver(function (entries) {
+          document.body.classList.toggle('past-hero', !entries[0].isIntersecting);
+        }, { rootMargin: '-' + (header.offsetHeight + 40) + 'px 0px 0px 0px' }).observe(hero);
+      } else {
+        document.body.classList.add('past-hero');
+      }
+      activate('top');
+    })();
+  </script>
+</body>
+
+</html>
